@@ -1,0 +1,16 @@
+{
+  "name": "safeprop",
+  "version": "1.0.0",
+  "description": "Small and typesafe object property navigation for JS & TS",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "safe",
+    "navigation",
+    "property"
+  ],
+  "author": "noppa",
+  "license": "MIT"
+}
