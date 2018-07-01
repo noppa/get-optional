@@ -1,5 +1,5 @@
 {
-  "name": "safeprop",
+  "name": "safeget",
   "version": "1.0.0",
   "description": "Small and typesafe object property navigation for JS & TS",
   "main": "index.js",
