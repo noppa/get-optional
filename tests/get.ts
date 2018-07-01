@@ -1,7 +1,7 @@
-import {get} from "../index";
+import {get} from '../index';
 
-describe("get function", () => {
+describe('get function', () => {
 	it('should run tests', () => {
-		expect(true).toBe(true)
-	})
+		expect(true).toBe(true);
+	});
 });

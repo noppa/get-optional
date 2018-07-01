@@ -6,7 +6,8 @@
   "scripts": {
     "build": "sh ./build.sh",
     "prepublish": "sh ./build.sh",
-    "test": "jest"
+		"test": "jest",
+		"lint": "tslint --project ."
   },
   "keywords": [
     "safe",
