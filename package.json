@@ -4,7 +4,9 @@
   "description": "Small and typesafe object property navigation for JS & TS",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+		"test": "jest",
+		"build": "sh ./build.sh",
+		"prepublish": "sh ./build.sh"
   },
   "keywords": [
     "safe",

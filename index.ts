@@ -45,3 +45,9 @@ const getWithDefault: IGetWithDefault = (defaultValue: any, object: object, ...k
 	createGetter(defaultValue)(object, ...keys);
 
 const getter: IProperty = (...keys: any[]) => (obj: object) => (get as any)(obj, ...keys);
+
+export {
+	get,
+	getWithDefault,
+	getter,
+};
