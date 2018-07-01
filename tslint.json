@@ -5,8 +5,8 @@
     ],
     "jsRules": {},
     "rules": {
-      "quotes": [true, "single"],
-      "indent": [true, "tabs"]
+      "quote": [true, "single"],
+			"indent": [true, "tabs"],
     },
     "rulesDirectory": []
 }
