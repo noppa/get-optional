@@ -12,8 +12,6 @@ module.exports = {
 			tsConfigFile: "tsconfig.json"
 		},
 	},
-	testMatch: [
-		"**/tests/*.+(ts|tsx|js)"
-	],
+	testRegex: "tests[\\\\/].+\\.spec\\.ts",
 	roots: ["tests"]
 }

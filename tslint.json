@@ -6,7 +6,13 @@
     "jsRules": {},
     "rules": {
       "quotemark": [true, "single"],
-			"indent": [true, "tabs"]
+			"indent": [true, "tabs"],
+			"no-unused-expression": true,
+			"no-unused-variable": true,
+			"ordered-imports": false,
+			"object-literal-sort-keys": false,
+			"interface-name": false,
+			"arrow-parens": false,
     },
     "rulesDirectory": []
 }
