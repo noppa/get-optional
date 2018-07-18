@@ -11,6 +11,11 @@ const libSource = readFileSync(
 	'utf8',
 );
 
+const safegetSource = readFileSync(
+	join(__dirname, '..', '..', '..', 'index.ts'),
+	'utf8'
+)
+
 interface FileMap {
 	[key: string]: Code;
 }
@@ -20,7 +25,8 @@ const noop = always(undefined);
 
 function createProgram(testFileSources: FileMap) {
 	const allSources: FileMap = {
-		['lib.d.ts']: libSource,
+		'lib.d.ts': libSource,
+		'safeget.ts': safegetSource,
 		...testFileSources,
 	};
 

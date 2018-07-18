@@ -18,8 +18,17 @@ export interface IGet {
 	Key2 extends keyof NonNullable<NonNullable<T>[Key1]>,
 	Key3 extends keyof NonNullable<NonNullable<NonNullable<T>[Key1]>[Key2]>
 	>
-		(object: T, key1: Key1, key2: Key2)
+		(object: T, key1: Key1, key2: Key2, key3: Key3)
 			: undefined | NonNullable<NonNullable<NonNullable<T>[Key1]>[Key2]>[Key3];
+
+	<T,
+	Key1 extends keyof NonNullable<T>,
+	Key2 extends keyof NonNullable<NonNullable<T>[Key1]>,
+	Key3 extends keyof NonNullable<NonNullable<NonNullable<T>[Key1]>[Key2]>,
+	Key4 extends keyof NonNullable<NonNullable<NonNullable<NonNullable<T>[Key1]>[Key2]>[Key3]>
+	>
+		(object: T, key1: Key1, key2: Key2, key3: Key3, key4: Key4)
+			: undefined | NonNullable<NonNullable<NonNullable<NonNullable<T>[Key1]>[Key2]>[Key3]>[Key4];
 
 }
 
