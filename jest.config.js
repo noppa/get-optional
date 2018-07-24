@@ -13,6 +13,6 @@ module.exports = {
 		},
 		"ROOT_DIR": __dirname
 	},
-	testRegex: "tests[\\\\/].+\\.spec\\.ts",
+	testRegex: "tests[\\\\/].+\\.spec\\.ts$",
 	roots: ["tests"]
 }
