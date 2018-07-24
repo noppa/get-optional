@@ -1,0 +1,8 @@
+{
+	"private": true,
+	"name": "safeget-testbed-ts",
+	"version": "1.0.0",
+	"dependencies": {
+		"safeget": "file:../../../lib"
+	}
+}

@@ -3,7 +3,16 @@
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {},
+    "jsRules": {
+      "quotemark": [true, "single"],
+			"indent": [true, "tabs"],
+			"no-unused-expression": true,
+			"no-unused-variable": true,
+			"ordered-imports": false,
+			"object-literal-sort-keys": false,
+			"arrow-parens": false,
+			"no-console": true
+		},
     "rules": {
       "quotemark": [true, "single"],
 			"indent": [true, "tabs"],
@@ -13,6 +22,8 @@
 			"object-literal-sort-keys": false,
 			"interface-name": false,
 			"arrow-parens": false,
+			"no-console": false,
+			"member-access": false
     },
     "rulesDirectory": []
 }

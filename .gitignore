@@ -1,5 +1,4 @@
 .vscode/
 node_modules/
-index.js
-es/
-**/*.d.ts
+/lib/index.d.ts
+*.log

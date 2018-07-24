@@ -2,12 +2,13 @@
   "name": "safeget",
   "version": "1.0.0",
   "description": "Small and typesafe object property navigation for JS & TS",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "sh ./build.sh",
-    "prepublish": "sh ./build.sh",
+    "build": "ts-node --project tsconfig.json build/index.ts",
+		"debug": "nodemon --watch build -e ts --exec yarn build",
+		"pretest": "yarn build && yarn --no-lockfile --cwd tests/typings-ts/testbed",
     "test": "jest --verbose",
-    "lint": "tslint --project ."
+		"lint": "tslint --project ."
   },
   "keywords": [
     "safe",
@@ -21,7 +22,9 @@
     "@types/node": "^10.5.1",
     "flow-bin": "^0.75.0",
     "jest": "^23.2.0",
+    "nodemon": "^1.18.3",
     "ts-jest": "^22.4.6",
+    "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
     "typescript": "^2.9.2"
   }
