@@ -19,5 +19,8 @@ declare var input: null | {
 	a: A;
 };
 
-// Error: Result can be undefined
+// Error, because the result can also be undefined
 const c: C = get(input, 'a', 'b', 'c');
+
+// Error, because property "c" is not in "a"
+const b = get(input, 'a', 'c');

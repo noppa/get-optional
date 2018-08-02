@@ -3,5 +3,6 @@
 exports[`Incorrect usage from TS should not typecheck 1`] = `
 "should-not-pass.ts(23,7): error TS2322: Type 'C | undefined' is not assignable to type 'C'.
   Type 'undefined' is not assignable to type 'C'.
+should-not-pass.ts(26,27): error TS2345: Argument of type '\\"c\\"' is not assignable to parameter of type '\\"b\\"'.
 "
 `;
