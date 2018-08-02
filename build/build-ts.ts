@@ -1,9 +1,6 @@
 import {TabsProvider, writeFile, relativeToRoot} from './shared';
 
 function* tsGenerator(tabs: TabsProvider) {
-	yield 'declare module "safeget" {';
-
-	tabs.indent();
 	yield 'export interface IGet {';
 
 	tabs.indent();
@@ -38,9 +35,6 @@ function* tsGenerator(tabs: TabsProvider) {
 
 	yield '}';
 	yield 'export const get: IGet;';
-	tabs.outdent();
-
-	yield '}';
 }
 
 export default function buildTs() {

@@ -1,4 +1,4 @@
-import {get} from '../index';
+import {get} from '../../lib/index.js';
 
 interface Input {
 	a: null | {

@@ -1,5 +1,4 @@
 import {execFile} from 'child_process';
-import {promisify} from 'util';
 import * as path from 'path';
 
 const checkTs = (configFilename: string) => new Promise((resolve, reject) => execFile(
