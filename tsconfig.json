@@ -3,5 +3,8 @@
     "target": "es6",
     "module": "commonjs",
     "strict": true
-	}
+  },
+  "exclude": [
+    "./tests/typings/testbed/should-pass.flow.js"
+  ]
 }
