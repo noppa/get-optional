@@ -1,4 +1,6 @@
-import {TabsProvider, writeFile, relativeToRoot} from './shared';
+import { TabsProvider, writeFile, relativeToRoot } from './shared';
+
+const identity = <T>(_: T): T => _;
 
 function* flowGenerator(tabs: TabsProvider) {
 	yield '// @flow';
@@ -13,8 +15,11 @@ function* flowGenerator(tabs: TabsProvider) {
 		tabs.indent();
 		for (let ii = 0; ii < i; ii++) {
 			const keyNumber = ii + 1;
-			const prevIndexer = ii ? `[Key${ii}]` : '';
-			prevType = `$NonMaybeType<${prevType + prevIndexer}>`;
+			const prevIndexer: (str: string) => string = ii
+				? (_ => `$ElementType<${_}, Key${ii}>`)
+				: identity;
+
+			prevType = `$NonMaybeType<${prevIndexer(prevType)}>`;
 
 			yield `Key${keyNumber}: $Keys<${prevType}>,`;
 		}
@@ -29,7 +34,7 @@ function* flowGenerator(tabs: TabsProvider) {
 				.join(', ') +
 			')';
 
-		yield `: void | ${prevType}[Key${i}];`;
+		yield `: void | $ElementType<${prevType}, Key${i}>;`;
 		tabs.outdent();
 	}
 	tabs.outdent();
