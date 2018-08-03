@@ -1,8 +1,10 @@
 import {execFile} from 'child_process';
 import * as path from 'path';
 
+const executableExtension = process.platform === 'win32' ? '.cmd' : ''
+
 const checkTs = (configFilename: string) => new Promise((resolve, reject) => execFile(
-	path.join(ROOT_DIR, 'node_modules/.bin/tsc.cmd'),
+	path.join(ROOT_DIR, 'node_modules/.bin/tsc' + executableExtension),
 	`--noEmit --project ./${configFilename}.tsconfig.json`.split(' '),
 	{
 		cwd: path.join(__dirname, 'testbed'),
