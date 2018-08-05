@@ -1,5 +1,6 @@
 .vscode/
 node_modules/
 /lib/index.d.ts
-/lib/index.flow
+/lib/index.js.flow
+/tests/typings/testbed/.flowconfig
 *.log

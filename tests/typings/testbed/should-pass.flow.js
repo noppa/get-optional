@@ -2,17 +2,17 @@
 import {get} from 'safeget';
 
 type E = number;
-interface D {
+type D = {
 	e: E;
 }
-interface C {
+type C = {
 	d: D;
 }
-interface B {
+type B = {
 	c: C;
 }
 
-interface A {
+type A = {
 	b: B;
 }
 

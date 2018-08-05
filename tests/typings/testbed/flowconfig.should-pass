@@ -1,3 +1,2 @@
 [include]
 ./should-pass.flow.js
-./should-not-pass.flow.js

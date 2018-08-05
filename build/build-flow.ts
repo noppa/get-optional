@@ -4,7 +4,8 @@ const identity = <T>(_: T): T => _;
 
 function* flowGenerator(tabs: TabsProvider) {
 	yield '// @flow';
-	yield 'declare export interface IGet {';
+	yield 'type Prop = string|number';
+	yield 'export interface IGet {';
 
 	tabs.indent();
 	for (let i = 1; i < 6; i++) {
@@ -21,7 +22,7 @@ function* flowGenerator(tabs: TabsProvider) {
 
 			prevType = `$NonMaybeType<${prevIndexer(prevType)}>`;
 
-			yield `Key${keyNumber}: $Keys<${prevType}>,`;
+			yield `Key${keyNumber}: Prop,`;
 		}
 		tabs.outdent();
 
@@ -40,7 +41,7 @@ function* flowGenerator(tabs: TabsProvider) {
 	tabs.outdent();
 
 	yield '}';
-	yield 'declare export const get: IGet;';
+	yield 'declare export var get: IGet;';
 }
 
 export default function buildFlow() {
@@ -50,5 +51,5 @@ export default function buildFlow() {
 		result += tabs + line + '\n';
 	}
 
-	return writeFile(relativeToRoot('lib', 'index.flow'), result);
+	return writeFile(relativeToRoot('lib', 'index.js.flow'), result);
 }
