@@ -5,12 +5,12 @@ import * as fs from 'fs';
 const executableExtension = process.platform === 'win32' ? '.cmd' : '';
 const testbed = path.join(__dirname, 'testbed');
 
-const checkFlow = (configFilename: string): Promise<string> =>
+const checkFlow = (testdir: string): Promise<string> =>
 	new Promise((resolve, reject) => execFile(
 		path.join(ROOT_DIR, 'node_modules/.bin/flow' + executableExtension),
-		`check --all`.split(' '),
+		`check ${testdir} --all`.split(' '),
 		{
-			cwd: testbed,
+			cwd: path.join(testbed),
 		},
 		(error, stdout, stderr) => {
 			if (error) {
@@ -21,23 +21,16 @@ const checkFlow = (configFilename: string): Promise<string> =>
 		},
 	));
 
-describe('Incorrect usage from Flow', () => {
-	beforeAll(() => new Promise((resolve, reject) => {
-		fs.copyFile(
-			path.join(testbed, 'flowconfig.should-pass'),
-			path.join(testbed, '.flowconfig'),
-			err => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve();
-				}
-			},
-		);
-	}));
-
+describe('Correct usage from Flow', () => {
 	it('should typecheck', async () => {
-		const result = await checkFlow('should-pass');
+		const result = await checkFlow('flow-should-pass');
 		expect(result.trim()).toBe('Found 0 errors');
+	});
+});
+
+describe('Incorrect usage from Flow', () => {
+	it('should not typecheck', async () => {
+		const result = await checkFlow('flow-should-not-pass');
+		expect(result.trim()).not.toBe('Found 0 errors');
 	});
 });
