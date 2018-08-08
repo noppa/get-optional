@@ -30,7 +30,7 @@ describe('Correct usage from Flow', () => {
 
 describe('Incorrect usage from Flow', () => {
 	it('should not typecheck', async () => {
-		const result = await checkFlow('flow-should-not-pass');
-		expect(result.trim()).not.toBe('Found 0 errors');
+		const result = checkFlow('flow-should-not-pass');
+		await expect(result).rejects.toMatchSnapshot();
 	});
 });
