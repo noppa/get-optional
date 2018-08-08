@@ -22,7 +22,7 @@ function* flowGenerator(tabs: TabsProvider) {
 
 			prevType = `$NonMaybeType<${prevIndexer(prevType)}>`;
 
-			yield `Key${keyNumber}: Prop,`;
+			yield `Key${keyNumber}: ${keyNumber === 1 ? '$Keys<$NonMaybeType<T>>' : 'Prop'},`;
 		}
 		tabs.outdent();
 

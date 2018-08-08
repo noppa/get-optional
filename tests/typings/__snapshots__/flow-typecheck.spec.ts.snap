@@ -32,7 +32,7 @@ References:
    node_modules/safeget/index.js.flow:4:2
         v--
     4| 	<T,
-    5| 		Key1: Prop,
+    5| 		Key1: $Keys<$NonMaybeType<T>>,
     6| 	>
     7| 		(object: T, key1: Key1)
     8| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
@@ -44,7 +44,12 @@ References:
 
 Error --------------------------------------------------------------- flow-should-not-pass/should-not-pass.flow.js:31:57
 
-Cannot call \`get\` because an indexer property is missing in \`Number\` [1].
+Cannot call \`get\` because:
+ - Either property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
+ - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
+ - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
+ - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
+ - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
 
    flow-should-not-pass/should-not-pass.flow.js:31:57
    31| const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');
