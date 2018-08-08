@@ -23,6 +23,7 @@ const checkFlow = (testdir: string): Promise<string> =>
 
 describe('Correct usage from Flow', () => {
 	it('should typecheck', async () => {
+		expect.assertions(1);
 		const result = await checkFlow('flow-should-pass');
 		expect(result.trim()).toBe('Found 0 errors');
 	});
@@ -30,6 +31,7 @@ describe('Correct usage from Flow', () => {
 
 describe('Incorrect usage from Flow', () => {
 	it('should not typecheck', async () => {
+		expect.assertions(1);
 		const result = checkFlow('flow-should-not-pass');
 		await expect(result).rejects.toMatchSnapshot();
 	});

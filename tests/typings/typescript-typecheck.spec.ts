@@ -20,6 +20,7 @@ const checkTs = (testdir: string) => new Promise((resolve, reject) => execFile(
 
 describe('Correct usage from TS', () => {
 	it('should typecheck', async () => {
+		expect.assertions(1);
 		const result = await checkTs('should-pass');
 		expect(result).toBe('');
 	});
@@ -27,6 +28,7 @@ describe('Correct usage from TS', () => {
 
 describe('Incorrect usage from TS', () => {
 	it('should not typecheck', async () => {
+		expect.assertions(1);
 		const result = checkTs('should-not-pass');
 		await expect(result).rejects.toMatchSnapshot();
 	});
