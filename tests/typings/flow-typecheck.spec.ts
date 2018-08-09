@@ -22,17 +22,17 @@ const checkFlow = (testdir: string): Promise<string> =>
 	));
 
 describe('Correct usage from Flow', () => {
-	it('should typecheck', async () => {
+	it('should typecheck', () => {
 		expect.assertions(1);
-		const result = await checkFlow('flow-should-pass');
-		expect(result.trim()).toBe('Found 0 errors');
+		const result = checkFlow('flow-should-pass').then(_ => _.trim());
+		return expect(result).resolves.toBe('Found 0 errors');
 	});
 });
 
 describe('Incorrect usage from Flow', () => {
-	it('should not typecheck', async () => {
+	it('should not typecheck', () => {
 		expect.assertions(1);
 		const result = checkFlow('flow-should-not-pass');
-		await expect(result).rejects.toMatchSnapshot();
+		return expect(result).rejects.toMatchSnapshot();
 	});
 });

@@ -19,17 +19,17 @@ const checkTs = (testdir: string) => new Promise((resolve, reject) => execFile(
 ));
 
 describe('Correct usage from TS', () => {
-	it('should typecheck', async () => {
+	it('should typecheck', () => {
 		expect.assertions(1);
-		const result = await checkTs('should-pass');
-		expect(result).toBe('');
+		const result = checkTs('should-pass');
+		return expect(result).resolves.toBe('');
 	});
 });
 
 describe('Incorrect usage from TS', () => {
-	it('should not typecheck', async () => {
+	it('should not typecheck', () => {
 		expect.assertions(1);
 		const result = checkTs('should-not-pass');
-		await expect(result).rejects.toMatchSnapshot();
+		return expect(result).rejects.toMatchSnapshot();
 	});
 });
