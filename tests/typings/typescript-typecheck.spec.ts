@@ -10,6 +10,7 @@ const checkTs = (testdir: string) => new Promise((resolve, reject) => execFile(
 		cwd: path.join(__dirname, 'testbed'),
 	},
 	(error, stdout, stderr) => {
+		console.info('woop woop', error, stdout, stderr);
 		if (error) {
 			reject(stdout || stderr || error);
 		} else {

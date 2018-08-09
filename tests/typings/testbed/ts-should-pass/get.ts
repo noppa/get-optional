@@ -1,25 +1,7 @@
 import {get} from 'safeget';
+import {A, B, C, D, E, input} from '../ts-interfaces';
 
-type E = number;
-interface D {
-	e: E;
-}
-interface C {
-	d: D;
-}
-interface B {
-	c: C;
-}
-
-interface A {
-	b: B;
-}
-
-declare var input: null | {
-	a: A;
-};
-
-// Basic usage for all depths
+// Basic usage for all depths for get
 const a: undefined | A = get(input, 'a');
 const b: undefined | B = get(input, 'a', 'b');
 const c: undefined | C = get(input, 'a', 'b', 'c');
