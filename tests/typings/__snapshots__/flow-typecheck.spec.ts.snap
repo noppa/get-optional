@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Incorrect usage from Flow should not typecheck 1`] = `
+exports[`Flow type definitions should not typecheck for incorrect usage 1`] = `
 "Error --------------------------------------------------------------- flow-should-not-pass/should-not-pass.flow.js:24:14
 
 Cannot assign \`get(...)\` to \`c\` because undefined [1] is incompatible with \`C\` [2].
