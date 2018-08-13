@@ -5,6 +5,6 @@
 		"strict": true
 	},
 	"files": [
-		"should-not-pass.ts"
+		"get.ts"
 	]
 }

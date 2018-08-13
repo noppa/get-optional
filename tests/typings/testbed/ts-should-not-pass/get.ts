@@ -1,23 +1,5 @@
 import {get} from 'safeget';
-
-type E = number;
-interface D {
-	e: E;
-}
-interface C {
-	d: D;
-}
-interface B {
-	c: C;
-}
-
-interface A {
-	b: B;
-}
-
-declare var input: null | {
-	a: A;
-};
+import {A, B, C, D, E, input} from '../ts-interfaces';
 
 // Error, because the result can also be undefined
 const c: C = get(input, 'a', 'b', 'c');
