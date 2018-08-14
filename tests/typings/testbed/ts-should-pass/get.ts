@@ -9,3 +9,7 @@ const d: undefined | D = get(input, 'a', 'b', 'c', 'd');
 const e: undefined | E = get(input, 'a', 'b', 'c', 'd', 'e');
 
 const toFixed: undefined | typeof Number.prototype.toFixed = get(e, 'toFixed');
+
+// Usage with record type & lists
+declare const pollResults: {[area: string]: number[]};
+const num: undefined | number = get(pollResults, 'Helsinki', 0);
