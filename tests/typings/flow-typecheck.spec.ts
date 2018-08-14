@@ -22,6 +22,7 @@ const checkFlow = (testdir: string): Promise<string> => new Promise((resolve, re
 			},
 		);
 	} catch (err) {
+		console.error(err);
 		reject(err);
 	}
 });

@@ -20,12 +20,14 @@ const checkTs = (testdir: string) => new Promise((resolve, reject) => {
 			},
 		);
 	} catch (err) {
+		console.error(err);
 		reject(err);
 	}
 });
 
 describe('Typescript type definitions', () => {
 	it('should typecheck for correct usage', () => {
+		expect.assertions(1);
 		const result = checkTs('should-pass');
 		return expect(result).resolves.toBe('');
 	});
