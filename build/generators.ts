@@ -29,12 +29,13 @@ function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
 		let prevType = 'T';
 
 		// Generic type arguments list starts.
-		yield '<T,';
-
-		tabs.indent();
-
 		if (withDefaultValue) {
-			yield 'DefaultValue,';
+			yield '<DefaultValue,';
+			tabs.indent();
+			yield 'T,';
+		} else {
+			yield '<T,';
+			tabs.indent();
 		}
 
 		for (let ii = 0; ii < i; ii++) {
@@ -50,8 +51,9 @@ function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
 
 		// Arguments list starts.
 		tabs.indent();
-		yield '(object: T, ' +
+		yield '(' +
 			(withDefaultValue ? 'defaultValue: DefaultValue, ' : '') +
+			'object: T, ' +
 			keyIndexes
 				.map(keyIdx => `key${keyIdx}: Key${keyIdx}`)
 				.join(', ') +

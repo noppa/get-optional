@@ -6,10 +6,10 @@ interface SomeType {
 }
 
 // Basic usage for all depths
-const a: null | A = getWithDefault(input, null, 'a');
-const b: number | B = getWithDefault(input, 5, 'a', 'b');
-const c: 'test' | C = getWithDefault(input, 'test', 'a', 'b', 'c');
-const d: SomeType | D = getWithDefault(input, { _kind: 'foobar' }, 'a', 'b', 'c', 'd');
-const e: E = getWithDefault(input, 42, 'a', 'b', 'c', 'd', 'e');
+const a: null | A = getWithDefault(null, input, 'a');
+const b: number | B = getWithDefault(5, input, 'a', 'b');
+const c: 'test' | C = getWithDefault('test', input, 'a', 'b', 'c');
+const d: SomeType | D = getWithDefault({ _kind: 'foobar' }, input, 'a', 'b', 'c', 'd');
+const e: E = getWithDefault(42, input, 'a', 'b', 'c', 'd', 'e');
 
-const toFixed: undefined | typeof Number.prototype.toFixed = getWithDefault(e, undefined, 'toFixed');
+const toFixed: undefined | typeof Number.prototype.toFixed = getWithDefault(undefined, e, 'toFixed');
