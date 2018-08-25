@@ -2,6 +2,8 @@ import { TabsProvider } from './shared';
 
 interface Config {
 	withDefaultValue: boolean;
+	getterFunctionFactory: boolean;
+
 	prevIndexer(prevIndex: number, pervType: string): string;
 	notNil(type: string): string;
 	typeArgumentKeyN(keyNumber: number, prevType: string): string;
@@ -12,6 +14,7 @@ interface Config {
 function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
 	const {
 		withDefaultValue,
+		getterFunctionFactory,
 		prevIndexer,
 		notNil,
 		typeArgumentKeyN,
@@ -19,8 +22,11 @@ function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
 		exportVar,
 	} = config;
 
-	const functionNameSuffix = withDefaultValue ? 'WithDefault' : '';
-	yield `export interface IGet${functionNameSuffix} {`;
+	const functionName =
+		(getterFunctionFactory ? 'createGetter' : 'get') +
+		(withDefaultValue ? 'WithDefault' : '');
+
+	yield `export interface ${toInterfaceName(functionName)} {`;
 
 	tabs.indent();
 	// Run through all the 5 overloads of this function, generating one signature for each.
@@ -53,19 +59,26 @@ function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
 		tabs.indent();
 		yield '(' +
 			(withDefaultValue ? 'defaultValue: DefaultValue, ' : '') +
-			'object: T, ' +
+			(getterFunctionFactory ? '' : 'object: T, ') +
 			keyIndexes
 				.map(keyIdx => `key${keyIdx}: Key${keyIdx}`)
 				.join(', ') +
 			')';
 
-		yield returnType(i, prevType, withDefaultValue ? 'DefaultValue' : undefined) + ';';
+		if (getterFunctionFactory) {
+			yield ': (object: T)';
+		}
+		const returnTypeStart = getterFunctionFactory ? ' => ' : ': ';
+
+		yield returnTypeStart +
+			returnType(i, prevType, withDefaultValue ? 'DefaultValue' : undefined) + ';';
+
 		tabs.outdent();
 	}
 	tabs.outdent();
 
 	yield '}\n';
-	yield exportVar('get' + functionNameSuffix, 'IGet' + functionNameSuffix) + ';';
+	yield exportVar(functionName, toInterfaceName(functionName)) + ';';
 }
 
 function buildWith(
@@ -78,6 +91,9 @@ function buildWith(
 	}
 	return result;
 }
+
+const toInterfaceName = (functionName: string) =>
+	functionName[0].toUpperCase() + functionName.slice(1);
 
 export {
 	getter,

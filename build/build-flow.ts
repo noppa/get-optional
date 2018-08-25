@@ -1,9 +1,15 @@
 import { TabsProvider, writeFile, relativeToRoot } from './shared';
 import { getter, buildWith } from './generators';
 
-function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
+function* generatorForGetters(
+	tabs: TabsProvider,
+	withDefaultValue: boolean,
+	getterFunctionFactory: boolean,
+) {
 	yield* getter(tabs, {
 		withDefaultValue,
+		getterFunctionFactory,
+
 		prevIndexer(prevIndex, prevType) {
 			return prevIndex > 0
 				? `$ElementType<${prevType}, Key${prevIndex}>`
@@ -17,7 +23,7 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 			return `Key${keyNumber}: ${typeRestriction}`;
 		},
 		returnType(keyNumber, prevType, defaultType = 'void') {
-			return `: ${defaultType} | $ElementType<${prevType}, Key${keyNumber}>`;
+			return `${defaultType} | $ElementType<${prevType}, Key${keyNumber}>`;
 		},
 		exportVar(varname, typename) {
 			return `declare export var ${varname}: ${typename}`;
@@ -32,8 +38,11 @@ export default function buildFlow() {
 		'type Prop = string | number;',
 		'',
 	].join('\n');
+
 	const generated = [false, true]
-		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue), tabs))
+		.map(withDefaultValue =>
+			[false, true].map(getterFunctionFactory =>
+				buildWith(generatorForGetters(tabs, withDefaultValue, getterFunctionFactory), tabs)).join('\n'))
 		.join('\n');
 
 	const result = fileStart + generated;

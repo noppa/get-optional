@@ -6,6 +6,7 @@
 	},
 	"files": [
 		"get.ts",
-		"getWithDefault.ts"
+		"getWithDefault.ts",
+		"createGetter.ts"
 	]
 }
