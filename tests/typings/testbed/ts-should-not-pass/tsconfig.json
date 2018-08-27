@@ -5,6 +5,7 @@
 		"strict": true
 	},
 	"files": [
-		"get.ts"
+		"get.ts",
+		"getWithDefault.ts"
 	]
 }
