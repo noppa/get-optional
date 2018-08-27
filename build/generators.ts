@@ -1,15 +1,18 @@
 import { TabsProvider } from './shared';
 
-interface Config {
+interface BaseConfig {
 	withDefaultValue: boolean;
+	returnType(keyNumber: number, prevType: string, defaultType: undefined | string): string;
+}
+
+interface GetterConfig extends BaseConfig {
 	prevIndexer(prevIndex: number, pervType: string): string;
 	notNil(type: string): string;
 	typeArgumentKeyN(keyNumber: number, prevType: string): string;
-	returnType(keyNumber: number, prevType: string, defaultType: undefined | string): string;
 	exportVar(varname: string, typename: string): string;
 }
 
-function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
+function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 	const {
 		withDefaultValue,
 		prevIndexer,
@@ -66,6 +69,11 @@ function* getter(tabs: TabsProvider, config: Config): Iterable<string> {
 
 	yield '}\n';
 	yield exportVar('get' + functionNameSuffix, 'IGet' + functionNameSuffix) + ';';
+}
+
+interface NthConfig extends BaseConfig {
+	readOnly(type: string): string;
+	exportFn(functionDeclaration: string): string;
 }
 
 function buildWith(

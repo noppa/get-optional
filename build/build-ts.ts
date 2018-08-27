@@ -21,10 +21,22 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	});
 }
 
+function* generatorForNth(tabs: TabsProvider) {
+	yield `export function nth<T>(list: $ReadOnlyArray<T>, n: number): void | T;`;
+	yield 'export function nthWithDefault<';
+	tabs.indent();
+	yield 'DefaultValue,';
+	yield 'T>';
+	yield '(list: $ReadOnlyArray<T>, n: number): void | T;';
+	tabs.outdent();
+}
+
 export default function buildTs() {
 	const tabs = new TabsProvider();
 	const result = [false, true]
 		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue), tabs))
-		.join('\n');
+		.join('\n')
+		+ buildWith(generatorForNth(tabs), tabs);
+
 	return writeFile(relativeToRoot('lib', 'index.d.ts'), result);
 }
