@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Flow type definitions should not typecheck for incorrect usage 1`] = `
-"Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:24:14
+"Error --------------------------------------------------------------------------------- flow-should-not-pass/get.js:7:14
 
 Cannot assign \`get(...)\` to \`c\` because undefined [1] is incompatible with \`C\` [2].
 
-   flow-should-not-pass/get.js:24:14
-   24| const c: C = get(input, 'a', 'b', 'c');
+   flow-should-not-pass/get.js:7:14
+    7| const c: C = get(input, 'a', 'b', 'c');
                     ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 References:
    node_modules/safeget/index.js.flow:21:5
    21| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>>, Key3>;
            ^^^^ [1]
-   flow-should-not-pass/get.js:24:10
-   24| const c: C = get(input, 'a', 'b', 'c');
+   flow-should-not-pass/get.js:7:10
+    7| const c: C = get(input, 'a', 'b', 'c');
                 ^ [2]
 
 
-Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:27:11
+Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:10:11
 
 Cannot call \`get\` because:
  - Either no more than 2 arguments are expected by function type [1].
  - Or property \`c\` is missing in \`A\` [2].
 
-   flow-should-not-pass/get.js:27:11
-   27| const b = get(input, 'a', 'c');
+   flow-should-not-pass/get.js:10:11
+   10| const b = get(input, 'a', 'c');
                  ^^^^^^^^^^^^^^^^^^^^
 
 References:
@@ -37,12 +37,13 @@ References:
     7| 		(object: T, key1: Key1)
     8| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
        		--------------------------------------------^ [1]
-   flow-should-not-pass/get.js:20:5
-   20| 	a: A;
+   flow-interfaces.js:19:5
+   19| 	a: A;
+
            ^ [2]
 
 
-Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:31:57
+Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:14:57
 
 Cannot call \`get\` because:
  - Either property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
@@ -51,13 +52,14 @@ Cannot call \`get\` because:
  - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
  - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
 
-   flow-should-not-pass/get.js:31:57
-   31| const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');
+   flow-should-not-pass/get.js:14:57
+   14| const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');
                                                                ^^^^^^^^^^^^^^^^^
 
 References:
-   flow-should-not-pass/get.js:4:10
-    4| type E = number;
+   flow-interfaces.js:3:10
+    3| type E = number;
+
                 ^^^^^^ [1]
 
 
