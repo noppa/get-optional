@@ -1,24 +1,7 @@
 // @flow
 import {get} from 'safeget';
-
-type E = number;
-type D = {
-	e: E;
-}
-type C = {
-	d: D;
-}
-type B = {
-	c: C;
-}
-
-type A = {
-	b: B;
-}
-
-declare var input: null | {
-	a: A;
-};
+import {input} from '../flow-interfaces';
+import type {A, B, C, D, E} from '../flow-interfaces';
 
 // Error, because the result can also be undefined
 const c: C = get(input, 'a', 'b', 'c');
