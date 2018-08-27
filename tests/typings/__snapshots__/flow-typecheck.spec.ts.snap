@@ -63,8 +63,55 @@ References:
                 ^^^^^^ [1]
 
 
+Error ---------------------------------------------------------------------- flow-should-not-pass/getWithDefault.js:7:14
 
-Found 3 errors
+Cannot assign \`getWithDefault(...)\` to \`c\` because property \`d\` is missing in \`B\` [1] but exists in \`C\` [2].
+
+   flow-should-not-pass/getWithDefault.js:7:14
+   7| const c: C = getWithDefault(bDefault, input, 'a', 'b', 'c');
+
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-should-not-pass/getWithDefault.js:9:23
+   9| declare var bDefault: B;
+
+                            ^ [1]
+   flow-should-not-pass/getWithDefault.js:7:10
+   7| const c: C = getWithDefault(bDefault, input, 'a', 'b', 'c');
+
+               ^ [2]
+
+
+Error --------------------------------------------------------------------- flow-should-not-pass/getWithDefault.js:11:11
+
+Cannot call \`getWithDefault\` because:
+ - Either no more than 3 arguments are expected by function type [1].
+ - Or property \`c\` is missing in \`A\` [2].
+
+   flow-should-not-pass/getWithDefault.js:11:11
+   11| const b = getWithDefault(bDefault, input, 'a', 'c');
+
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   node_modules/safeget/index.js.flow:44:2
+        v-------------
+   44| 	<DefaultValue,
+   45| 		T,
+   46| 		Key1: $Keys<$NonMaybeType<T>>,
+   47| 	>
+   48| 		(defaultValue: DefaultValue, object: T, key1: Key1)
+   49| 		: DefaultValue | $ElementType<$NonMaybeType<T>, Key1>;
+       		----------------------------------------------------^ [1]
+   flow-interfaces.js:19:5
+   19| 	a: A;
+
+           ^ [2]
+
+
+
+Found 5 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches
