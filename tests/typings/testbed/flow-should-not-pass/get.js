@@ -9,10 +9,12 @@ const c: C = get(input, 'a', 'b', 'c');
 // Error, because property "c" is not in "a"
 const b = get(input, 'a', 'c');
 
-const e: void | E = get(input, 'a', 'b', 'c', 'd', 'e');
-// Known limitation in Flow typings, does work in TS
-const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');
+// Usage with record type & lists
+// Known limitation in Flow typings (array is not an object), use `nth` instead.
+declare var pollResults: {[area: string]: number[]};
+const num: void | number = get(pollResults, 'Helsinki', 0);
 
-// Known limitation in Flow typings, does work in TS
-// See flow-should-pass/get.js for a workaround
-const inputClass$a: void | number = get(new InputClass(), 'a');
+
+const e: void | E = get(input, 'a', 'b', 'c', 'd', 'e');
+// Known limitation in Flow typings (number is not an object), does work in TS.
+const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');

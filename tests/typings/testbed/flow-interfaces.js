@@ -20,7 +20,8 @@ declare var input: null | {
 };
 
 class InputClass {
-	a: number;
+	self: ?InputClass;
+	value: number;
 }
 
 export type {
