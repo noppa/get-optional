@@ -19,6 +19,14 @@ declare var input: null | {
 	a: A;
 };
 
+class InputClass {
+	a: number;
+}
+
 export type {
-	A, B, C, D, E, input,
+	A, B, C, D, E, InputClass,
 };
+
+export {
+	input,
+}

@@ -13,3 +13,8 @@ const toFixed: undefined | typeof Number.prototype.toFixed = get(e, 'toFixed');
 // Usage with record type & lists
 declare const pollResults: {[area: string]: number[]};
 const num: undefined | number = get(pollResults, 'Helsinki', 0);
+
+class InputClass {
+	a: number = 42;
+}
+const inputClass$a: undefined | number = get(new InputClass(), 'a');

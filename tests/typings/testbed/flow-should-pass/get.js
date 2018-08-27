@@ -1,6 +1,6 @@
 // @flow
 import {get} from 'safeget';
-import {input} from '../flow-interfaces';
+import {input, InputClass} from '../flow-interfaces';
 import type {A, B, C, D, E} from '../flow-interfaces';
 
 // Basic usage for all depths
@@ -13,3 +13,6 @@ const e: void | E = get(input, 'a', 'b', 'c', 'd', 'e');
 // Usage with record type & lists
 declare var pollResults: {[area: string]: number[]};
 const num: void | number = get(pollResults, 'Helsinki', 0);
+
+// Workaround to the "indexer property is missing in InputClass" issue.
+const inputClass$a: void | number = get(((new InputClass()): $ReadOnly<InputClass>), 'a');

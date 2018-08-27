@@ -63,6 +63,20 @@ References:
                 ^^^^^^ [1]
 
 
+Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:18:37
+
+Cannot call \`get\` because an indexer property is missing in \`InputClass\` [1].
+
+   flow-should-not-pass/get.js:18:37
+   18| const inputClass$a: void | number = get(new InputClass(), 'a');
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-should-not-pass/get.js:18:41
+   18| const inputClass$a: void | number = get(new InputClass(), 'a');
+                                               ^^^^^^^^^^^^^^^^ [1]
+
+
 Error ---------------------------------------------------------------------- flow-should-not-pass/getWithDefault.js:7:14
 
 Cannot assign \`getWithDefault(...)\` to \`c\` because property \`d\` is missing in \`B\` [1] but exists in \`C\` [2].
@@ -111,7 +125,7 @@ References:
 
 
 
-Found 5 errors
+Found 6 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches
