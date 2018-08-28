@@ -25,14 +25,9 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	});
 }
 
-function* generatorForNth(tabs: TabsProvider) {
+function* generatorForNth() {
 	yield `declare export function nth<T>(list: $ReadOnlyArray<T>, n: number): void | T;`;
-	yield 'declare export function nthWithDefault<';
-	tabs.indent();
-	yield 'DefaultValue,';
-	yield 'T>';
-	yield '(list: $ReadOnlyArray<T>, n: number): void | T;';
-	tabs.outdent();
+	yield 'declare export function nthWithDefault<DefaultValue, T>(list: $ReadOnlyArray<T>, n: number): void | T;';
 }
 
 export default function buildFlow() {
@@ -45,9 +40,10 @@ export default function buildFlow() {
 
 	const generatedGetters = [false, true]
 		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue), tabs))
-		.join('\n');
+		.join('\n')
+		+ '\n';
 
-	const generatedNth = buildWith(generatorForNth(tabs), tabs);
+	const generatedNth = buildWith(generatorForNth(), tabs);
 
 	const result = fileStart + generatedGetters + generatedNth;
 	return writeFile(relativeToRoot('lib', 'index.js.flow'), result);

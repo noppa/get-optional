@@ -21,14 +21,9 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	});
 }
 
-function* generatorForNth(tabs: TabsProvider) {
-	yield `export function nth<T>(list: $ReadOnlyArray<T>, n: number): void | T;`;
-	yield 'export function nthWithDefault<';
-	tabs.indent();
-	yield 'DefaultValue,';
-	yield 'T>';
-	yield '(list: $ReadOnlyArray<T>, n: number): void | T;';
-	tabs.outdent();
+function* generatorForNth() {
+	yield `export function nth<T>(list: ReadonlyArray<T>, n: number): void | T;`;
+	yield 'export function nthWithDefault<DefaultValue, T>(list: ReadonlyArray<T>, n: number): void | T;';
 }
 
 export default function buildTs() {
@@ -36,7 +31,8 @@ export default function buildTs() {
 	const result = [false, true]
 		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue), tabs))
 		.join('\n')
-		+ buildWith(generatorForNth(tabs), tabs);
+		+ '\n'
+		+ buildWith(generatorForNth(), tabs);
 
 	return writeFile(relativeToRoot('lib', 'index.d.ts'), result);
 }
