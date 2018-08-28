@@ -11,7 +11,7 @@ Cannot assign \`get(...)\` to \`c\` because undefined [1] is incompatible with \
 
 References:
    node_modules/safeget/index.js.flow:21:5
-   21| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>>, Key3>;
+   21| 		: void | $ElementType<$ReadOnly<$NonMaybeType<$ElementType<$ReadOnly<$NonMaybeType<$ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>>>, Key2>>>, Key3>;
            ^^^^ [1]
    flow-should-not-pass/get.js:7:10
     7| const c: C = get(input, 'a', 'b', 'c');
@@ -32,28 +32,52 @@ References:
    node_modules/safeget/index.js.flow:4:2
         v--
     4| 	<T,
-    5| 		Key1: $Keys<$NonMaybeType<T>>,
+    5| 		Key1: $Keys<$ReadOnly<$NonMaybeType<T>>>,
     6| 	>
     7| 		(object: T, key1: Key1)
-    8| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
-       		--------------------------------------------^ [1]
+    8| 		: void | $ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>;
+       		-------------------------------------------------------^ [1]
    flow-interfaces.js:19:5
    19| 	a: A;
 
            ^ [2]
 
 
-Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:14:57
+Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:15:28
 
 Cannot call \`get\` because:
- - Either property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
- - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
- - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
- - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
- - Or property \`toFixed\` is missing in number [1] in type argument \`Key1\`.
+ - Either no more than 2 arguments are expected by function type [1].
+ - Or array type [2] is not an object.
 
-   flow-should-not-pass/get.js:14:57
-   14| const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');
+   flow-should-not-pass/get.js:15:28
+   15| const num: void | number = get(pollResults, 'Helsinki', 0);
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   node_modules/safeget/index.js.flow:4:2
+        v--
+    4| 	<T,
+    5| 		Key1: $Keys<$ReadOnly<$NonMaybeType<T>>>,
+    6| 	>
+    7| 		(object: T, key1: Key1)
+    8| 		: void | $ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>;
+       		-------------------------------------------------------^ [1]
+   flow-should-not-pass/get.js:14:43
+   14| declare var pollResults: {[area: string]: number[]};
+                                                 ^^^^^^^^ [2]
+
+
+Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:20:57
+
+Cannot call \`get\` because:
+ - Either number [1] is not an object.
+ - Or number [1] is not an object.
+ - Or number [1] is not an object.
+ - Or number [1] is not an object.
+ - Or number [1] is not an object.
+
+   flow-should-not-pass/get.js:20:57
+   20| const toFixed: void | typeof Number.prototype.toFixed = get(e, 'toFixed');
                                                                ^^^^^^^^^^^^^^^^^
 
 References:
@@ -61,20 +85,6 @@ References:
     3| type E = number;
 
                 ^^^^^^ [1]
-
-
-Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:18:37
-
-Cannot call \`get\` because an indexer property is missing in \`InputClass\` [1].
-
-   flow-should-not-pass/get.js:18:37
-   18| const inputClass$a: void | number = get(new InputClass(), 'a');
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-References:
-   flow-should-not-pass/get.js:18:41
-   18| const inputClass$a: void | number = get(new InputClass(), 'a');
-                                               ^^^^^^^^^^^^^^^^ [1]
 
 
 Error ---------------------------------------------------------------------- flow-should-not-pass/getWithDefault.js:7:14
@@ -113,11 +123,11 @@ References:
         v-------------
    44| 	<DefaultValue,
    45| 		T,
-   46| 		Key1: $Keys<$NonMaybeType<T>>,
+   46| 		Key1: $Keys<$ReadOnly<$NonMaybeType<T>>>,
    47| 	>
    48| 		(defaultValue: DefaultValue, object: T, key1: Key1)
-   49| 		: DefaultValue | $ElementType<$NonMaybeType<T>, Key1>;
-       		----------------------------------------------------^ [1]
+   49| 		: DefaultValue | $ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>;
+       		---------------------------------------------------------------^ [1]
    flow-interfaces.js:19:5
    19| 	a: A;
 

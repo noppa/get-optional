@@ -7,7 +7,7 @@
     "build": "ts-node --project tsconfig.json build/index.ts",
     "debug": "nodemon --watch build -e ts --exec yarn build",
     "pretest": "yarn build && yarn --no-lockfile --cwd tests/typings/testbed",
-    "test": "jest --verbose",
+    "test": "jest",
     "lint": "tslint --project ."
   },
   "keywords": [
