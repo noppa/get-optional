@@ -37,8 +37,8 @@ References:
     7| 		(object: T, key1: Key1)
     8| 		: void | $ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>;
        		-------------------------------------------------------^ [1]
-   flow-interfaces.js:19:5
-   19| 	a: A;
+   flow-interfaces.js:21:5
+   21| 	a: A;
 
            ^ [2]
 
@@ -106,7 +106,10 @@ References:
 
 Error ---------------------------------------------------------------------- flow-should-not-pass/getWithDefault.js:7:14
 
-Cannot assign \`getWithDefault(...)\` to \`c\` because property \`d\` is missing in \`B\` [1] but exists in \`C\` [2].
+Cannot assign \`getWithDefault(...)\` to \`c\` because:
+ - property \`arr\` is missing in \`B\` [1] but exists in \`C\` [2].
+ - property \`d\` is missing in \`B\` [1] but exists in \`C\` [2].
+ - property \`readonlyArr\` is missing in \`B\` [1] but exists in \`C\` [2].
 
    flow-should-not-pass/getWithDefault.js:7:14
    7| const c: C = getWithDefault(bDefault, input, 'a', 'b', 'c');
@@ -145,14 +148,87 @@ References:
    48| 		(defaultValue: DefaultValue, object: T, key1: Key1)
    49| 		: DefaultValue | $ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>;
        		---------------------------------------------------------------^ [1]
-   flow-interfaces.js:19:5
-   19| 	a: A;
+   flow-interfaces.js:21:5
+   21| 	a: A;
 
            ^ [2]
 
 
+Error -------------------------------------------------------------------------------- flow-should-not-pass/nth.js:11:35
 
-Found 7 errors
+Cannot assign \`nth(...)\` to \`fromNullableList\` because undefined [1] is incompatible with boolean [2].
+
+   flow-should-not-pass/nth.js:11:35
+   11| const fromNullableList: boolean = nth(get(input, 'a', 'b', 'c', 'arr'), 0);
+
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   node_modules/safeget/index.js.flow:88:70
+   88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
+                                                                            ^^^^ [1]
+   flow-should-not-pass/nth.js:11:25
+   11| const fromNullableList: boolean = nth(get(input, 'a', 'b', 'c', 'arr'), 0);
+
+                               ^^^^^^^ [2]
+
+
+Error -------------------------------------------------------------------------------- flow-should-not-pass/nth.js:14:53
+
+Cannot call \`nth\` with \`get(...)\` bound to \`list\` because boolean [1] is incompatible with string [2] in array element.
+
+   flow-should-not-pass/nth.js:14:53
+   14| const fromNullableReadonlyList: void | string = nth(get(input, 'a', 'b', 'c', 'readonlyArr'), 0);
+
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-interfaces.js:10:30
+   10| 	readonlyArr: $ReadOnlyArray<boolean>;
+
+                                    ^^^^^^^ [1]
+   flow-should-not-pass/nth.js:14:40
+   14| const fromNullableReadonlyList: void | string = nth(get(input, 'a', 'b', 'c', 'readonlyArr'), 0);
+
+                                              ^^^^^^ [2]
+
+
+Error -------------------------------------------------------------------------------- flow-should-not-pass/nth.js:17:24
+
+Cannot call \`nth\` with \`get(...)\` bound to \`list\` because \`B\` [1] is incompatible with read-only array type [2].
+
+   flow-should-not-pass/nth.js:17:24
+   17| const fromObject = nth(get(input, 'a', 'b'), 0);
+
+                              ^^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-interfaces.js:17:5
+   17| 	b: B;
+
+           ^ [1]
+   node_modules/safeget/index.js.flow:88:39
+   88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
+                                             ^^^^^^^^^^^^^^^^^ [2]
+
+
+Error -------------------------------------------------------------------------------- flow-should-not-pass/nth.js:20:40
+
+Cannot call \`nth\` with \`'0'\` bound to \`n\` because string [1] is incompatible with number [2].
+
+   flow-should-not-pass/nth.js:20:40
+   20| const withStringIndex = nth([1, 2, 3], '0');
+
+                                              ^^^ [1]
+
+References:
+   node_modules/safeget/index.js.flow:88:61
+   88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
+                                                                   ^^^^^^ [2]
+
+
+
+Found 13 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches

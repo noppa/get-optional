@@ -6,6 +6,8 @@ type D = {
 }
 type C = {
 	d: D;
+	arr: boolean[];
+	readonlyArr: $ReadOnlyArray<boolean>;
 }
 type B = {
 	c: C;
