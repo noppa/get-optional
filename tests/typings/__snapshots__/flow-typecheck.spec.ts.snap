@@ -87,6 +87,23 @@ References:
                 ^^^^^^ [1]
 
 
+Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:25:24
+
+Cannot assign \`get(...)\` to \`fromNull\` because undefined [1] is incompatible with null [2].
+
+   flow-should-not-pass/get.js:25:24
+   25| const fromNull: null = get(null, 'a');
+                              ^^^^^^^^^^^^^^
+
+References:
+   node_modules/safeget/index.js.flow:8:5
+    8| 		: void | $ElementType<$ReadOnly<$NonMaybeType<T>>, Key1>;
+           ^^^^ [1]
+   flow-should-not-pass/get.js:25:17
+   25| const fromNull: null = get(null, 'a');
+                       ^^^^ [2]
+
+
 Error ---------------------------------------------------------------------- flow-should-not-pass/getWithDefault.js:7:14
 
 Cannot assign \`getWithDefault(...)\` to \`c\` because property \`d\` is missing in \`B\` [1] but exists in \`C\` [2].
@@ -135,7 +152,7 @@ References:
 
 
 
-Found 6 errors
+Found 7 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches

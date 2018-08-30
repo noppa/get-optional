@@ -4,6 +4,7 @@ exports[`Typescript type definitions should not typecheck for incorrect usage 1`
 "ts-should-not-pass/get.ts(5,7): error TS2322: Type 'C | undefined' is not assignable to type 'C'.
   Type 'undefined' is not assignable to type 'C'.
 ts-should-not-pass/get.ts(8,27): error TS2345: Argument of type '\\"c\\"' is not assignable to parameter of type '\\"b\\"'.
+ts-should-not-pass/get.ts(11,28): error TS2345: Argument of type '\\"a\\"' is not assignable to parameter of type 'never'.
 ts-should-not-pass/getWithDefault.ts(5,7): error TS2322: Type 'C | B' is not assignable to type 'C'.
   Type 'B' is not assignable to type 'C'.
     Property 'd' is missing in type 'B'.

@@ -15,3 +15,7 @@ declare var pollResults: {[area: string]: number[]};
 const num: void | number[] = get(pollResults, 'Helsinki');
 
 const inputClassValue: void | number = get(new InputClass(), 'self', 'self', 'value');
+
+// There is no possibility of "a" being a valid key of null, but
+// Flow allows this call anyway and infers return type to be void.
+const fromNull: void = get(null, 'a');
