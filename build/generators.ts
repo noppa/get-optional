@@ -23,7 +23,7 @@ function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 	} = config;
 
 	const functionNameSuffix = withDefaultValue ? 'WithDefault' : '';
-	yield `export interface IGet${functionNameSuffix} {`;
+	yield `export interface Get${functionNameSuffix} {`;
 
 	tabs.indent();
 	// Run through all the 5 overloads of this function, generating one signature for each.
@@ -68,7 +68,7 @@ function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 	tabs.outdent();
 
 	yield '}\n';
-	yield exportVar('get' + functionNameSuffix, 'IGet' + functionNameSuffix) + ';';
+	yield exportVar('get' + functionNameSuffix, 'Get' + functionNameSuffix) + ';';
 }
 
 interface NthConfig extends BaseConfig {
