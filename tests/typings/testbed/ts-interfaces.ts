@@ -5,6 +5,8 @@ interface D {
 }
 interface C {
 	d: D;
+	arr: boolean[];
+	readonlyArr: ReadonlyArray<boolean>;
 }
 interface B {
 	c: C;

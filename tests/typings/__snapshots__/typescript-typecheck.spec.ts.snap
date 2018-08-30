@@ -8,5 +8,13 @@ ts-should-not-pass/getWithDefault.ts(5,7): error TS2322: Type 'C | B' is not ass
   Type 'B' is not assignable to type 'C'.
     Property 'd' is missing in type 'B'.
 ts-should-not-pass/getWithDefault.ts(9,48): error TS2345: Argument of type '\\"c\\"' is not assignable to parameter of type '\\"b\\"'.
+ts-should-not-pass/nth.ts(9,7): error TS2322: Type 'boolean | undefined' is not assignable to type 'boolean'.
+  Type 'undefined' is not assignable to type 'boolean'.
+ts-should-not-pass/nth.ts(12,7): error TS2322: Type 'boolean | undefined' is not assignable to type 'string | undefined'.
+  Type 'false' is not assignable to type 'string | undefined'.
+ts-should-not-pass/nth.ts(15,24): error TS2345: Argument of type 'B | undefined' is not assignable to parameter of type 'ReadonlyArray<{}> | null | undefined'.
+  Type 'B' is not assignable to type 'ReadonlyArray<{}>'.
+    Property 'length' is missing in type 'B'.
+ts-should-not-pass/nth.ts(18,40): error TS2345: Argument of type '\\"0\\"' is not assignable to parameter of type 'number'.
 "
 `;

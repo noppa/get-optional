@@ -22,8 +22,9 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 }
 
 function* generatorForNth() {
-	yield `export function nth<T>(list: ReadonlyArray<T>, n: number): void | T;`;
-	yield 'export function nthWithDefault<DefaultValue, T>(list: ReadonlyArray<T>, n: number): void | T;';
+	yield `export function nth<T>(list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;`;
+	yield 'export function nthWithDefault<DefaultValue, T>' +
+		'(list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;';
 }
 
 export default function buildTs() {
