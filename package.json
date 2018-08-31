@@ -4,7 +4,8 @@
   "description": "Small and typesafe object property navigation for JS & TS",
   "main": "lib/index.js",
   "scripts": {
-    "build": "ts-node --project tsconfig.json build/index.ts",
+		"build": "ts-node --project tsconfig.json build/index.ts",
+		"parseDocs": "ts-node --project tsconfig.json build/extractComments.ts",
     "debug": "nodemon --watch build -e ts --exec yarn build",
     "pretest": "yarn build && yarn --no-lockfile --cwd tests/typings/testbed",
     "test": "jest",
