@@ -28,15 +28,18 @@ const checkFlow = (testdir: string): Promise<string> => new Promise((resolve, re
 });
 
 describe('Flow type definitions', () => {
+	// Flow can sometimes be a bit slow
+	const flowTestTimeout = 60 * 1000;
+
 	it('should typecheck for correct usage', () => {
 		expect.assertions(1);
 		const result = checkFlow('flow-should-pass').then(_ => _.trim());
 		return expect(result).resolves.toBe('Found 0 errors');
-	});
+	}, flowTestTimeout);
 
 	it('should not typecheck for incorrect usage', () => {
 		expect.assertions(1);
 		const result = checkFlow('flow-should-not-pass');
 		return expect(result).rejects.toMatchSnapshot();
-	});
+	}, flowTestTimeout);
 });
