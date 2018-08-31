@@ -45,6 +45,18 @@ describe('nthWithDefault function', () => {
 			nthWithDefault(defaultValue, ['first', 'second', 'third'], 3),
 		).toBe(defaultValue);
 	});
+
+	it('should return default value when index < 0', () => {
+		expect(
+			nthWithDefault(defaultValue, ['first', 'second', 'third'], -1),
+		).toBe(defaultValue);
+	});
+
+	it('should return undefined when the accessed property is undefined', () => {
+		expect(
+			nthWithDefault(defaultValue, ['first', undefined, 'third'], 1),
+		).toBe(undefined);
+	});
 });
 
 describe('head function', () => {
