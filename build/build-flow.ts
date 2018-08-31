@@ -28,6 +28,9 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 function* generatorForNth() {
 	yield `declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;`;
 	yield 'declare export function nthWithDefault<DefaultValue, T>(list: ?$ReadOnlyArray<T>, n: number): void | T;';
+
+	yield `declare export function head<T>(list: ?$ReadOnlyArray<T>): void | T;`;
+	yield 'declare export function headWithDefault<DefaultValue, T>(list: ?$ReadOnlyArray<T>): void | T;';
 }
 
 export default function buildFlow() {
