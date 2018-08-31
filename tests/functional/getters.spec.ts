@@ -9,13 +9,19 @@ interface Input {
 describe('get function', () => {
 	it('should return value when it\'s there', () => {
 		const value = { num: 5 };
-		const obj: Input = {
+		const obj = {
 			a: {
-				b: value,
+				b: {
+					c: {
+						d: {
+							value,
+						},
+					},
+				},
 			},
 		};
 
-		expect(get(obj, 'a', 'b')).toBe(value);
+		expect(get(obj, 'a', 'b', 'c', 'd', 'value')).toBe(value);
 	});
 
 	it('should return undefined when the path contains null', () => {
