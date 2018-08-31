@@ -31,7 +31,7 @@ Path must consist of 1-5 string keys.
 If one of the keys in path (before the last key) points
 to a null or undefined value, `defaultValue` is returned instead.
 
-Example:
+**Example**
 ```javascript
 const object = { a: { b: null, c: { value: 42 } } };
 
@@ -46,7 +46,7 @@ Path must consist of 1-5 string keys.
 If one of the keys in path (before the last key) points
 to a null or undefined value, `undefined` is returned instead.
 
-Example:
+**Example**
 ```javascript
 const object = { a: { b: null, c: { value: 42 } } };
 
@@ -60,7 +60,7 @@ Gets the element at a given index of an array.
 If the index is out of bounds (larger than the length of the array),
 `defaultValue` is returned instead.
 
-Example:
+**Example**
 ```javascript
 const list = ['first', 'second', 'third'];
 
@@ -72,8 +72,9 @@ nthWithDefault('default', list, 3); // => 'default'
 
 Gets the element at a given index of an array.
 If the index is out of bounds (larger than the length of the array),
-`undefined` i
-Example:s returned instead.
+`undefined` is returned instead.
+
+**Example**
 ```javascript
 const list = ['first', 'second', 'third'];
 
@@ -83,8 +84,9 @@ nth(list, 3); // => undefined
 
 ### `headWithDefault(defaultValue, list)`
 Gets the first element of an array.
-If the array 
-Example:is empty, `defaultValue` is returned instead.
+If the array is empty, `defaultValue` is returned instead.
+
+**Example**
 ```javascript
 const list = ['first', 'second', 'third'];
 
@@ -96,10 +98,24 @@ headWithDefault('default', []);   // => 'default'
 Gets the first element of an array.
 If the array is empty, `undefined` is returned instead.
 
-Example:
+**Example**
 ```javascript
 const list = ['first', 'second', 'third'];
 
 head(list); // => 'first'
 head([]); // => undefined
 ```
+
+## Caveats
+* The type definition for Flow doesn't allow accessing array indexes using `get`/`getWithDefault`.
+  Use `nth`/`nthWithDefault`/`head`/`headWithDefault` instead:
+	```javascript
+	 nth(get(input, 'foo', 'arrayProperty'), 1);
+	```
+* This library is **NOT** meant to be used for accessing *dynamic* property paths.
+	```javascript
+	// Don't do this
+	get(input, ...propertyNamesList);
+	```
+  There are other libraries that handle that use-case better and safer, the focus of this one
+	is in type safety, not flexibility or fault-tolerance.
