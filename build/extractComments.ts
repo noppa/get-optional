@@ -1,3 +1,6 @@
+
+// Bunch of hacky scripts to get the documentation comments from index.js.
+
 import {promisify} from 'util';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -127,33 +130,12 @@ function stringify(value: any) {
 	return value === undefined ? 'undefined' : JSON.stringify(value);
 }
 
-export async function putDocsToLibfiles() {
-	const split = (_: string) => _.split(br);
-	const [declarations, flowliblines, tsliblines] = await Promise.all([
-		extractSignaturesFromIndexJs(),
-		readLibFile('index.js.flow').then(split),
-		readLibFile('index.d.ts').then(split),
-	]);
-
-	for (const declaration of declarations) {
-		const {name} = declaration;
-		const interfaceName = name.replace('get', 'Getter');
-		const reg = new RegExp(`(?:interface ${interfaceName} )|(?: function ${name}[^a-zA-Z0-9])`);
-		const isMatch = (line: string) => reg.test(line);
-		const tsDeclIdx = tsliblines.findIndex(isMatch);
-		const flowDeclIdx = flowliblines.findIndex(isMatch);
-		if (tsDeclIdx === -1 || flowDeclIdx === -1) {
-			throw new Error(`Can't find ${tsDeclIdx === -1 ? 'ts' : 'flow'} type declaration for ${name}`);
-		}
-		const docs = br + '/**' + br + declaration.docDescription.split(br).map(_ => '* ' + _).join(br) + br + '*/';
-		flowliblines.splice(flowDeclIdx, 0, docs);
-		tsliblines.splice(tsDeclIdx, 0, docs);
-	}
-
-	return Promise.all([
-		writeFile(pathToLibFile('index.js.flow'), flowliblines.join(br)),
-		writeFile(pathToLibFile('index.d.ts'), tsliblines.join(br)),
-	]);
+function markdownCode(codeStr: string) {
+	return '`' + codeStr + '`';
 }
 
-putDocsToLibfiles();
+if (require.main === module) {
+	// This file was called directly as a script, print documentation.
+	extractSignaturesFromIndexJs().then(docs =>
+		console.log(docs.map(_ => markdownCode(_.signature) + br + _.docs).join(br + br)));
+}
