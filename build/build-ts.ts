@@ -24,11 +24,11 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 function* generatorForNth() {
 	yield `export function nth<T>(list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;`;
 	yield 'export function nthWithDefault<DefaultValue, T>' +
-		'(list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;';
+		'(defaultValue: DefaultValue, list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;';
 
 	yield `export function head<T>(list: null | undefined | ReadonlyArray<T>): undefined | T;`;
 	yield 'export function headWithDefault<DefaultValue, T>' +
-		'(list: null | undefined | ReadonlyArray<T>): undefined | T;';
+		'(defaultValue: DefaultValue, list: null | undefined | ReadonlyArray<T>): undefined | T;';
 }
 
 export default function buildTs() {

@@ -2,9 +2,6 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "strict": true
-  },
-  "exclude": [
-    "./tests/typings/testbed/should-pass.flow.js"
-  ]
+		"strict": true
+  }
 }

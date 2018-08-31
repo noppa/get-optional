@@ -39,7 +39,7 @@ describe('get function', () => {
 	it('should return undefined when input is null', () => {
 		// This trickery is here just to prevent TS from inferring input === null
 		const obj: null | Input = 1 ? null : { a: { b: null } };
-		expect(obj).toBe(null); // Sanity check :)
+		expect(obj).toBe(null); // Sanity check
 
 		expect(get(obj, 'a', 'b')).toBe(undefined);
 	});
@@ -80,7 +80,7 @@ describe('getWithDefault function', () => {
 	it('should return default value when input is null', () => {
 		// This trickery is here just to prevent TS from inferring input === null
 		const obj: null | Input = 1 ? null : { a: { b: null } };
-		expect(obj).toBe(null); // Sanity check :)
+		expect(obj).toBe(null); // Sanity check
 
 		expect(getWithDefault(defaultValue, obj, 'a', 'b')).toBe(defaultValue);
 	});
