@@ -6,7 +6,7 @@ with possibly nullish intermediate values.
 Includes type definitions for **TypeScript** and **Flow** so that the validity of
 arguments can be checked and return value inferred.
 
-![TypeScript automatic inference example](assets/inference-example.png)
+<img alt="TypeScript automatic inference example" src="assets/inference-example.png" width="400"/>
 
 ## Installation
 
