@@ -121,3 +121,17 @@ head([]); // => undefined
 	```
   There are other libraries that handle that use-case better and safer, the focus of this one
 	is in type safety, not flexibility or fault-tolerance.
+
+## Other tools like this
+* [lodash.get](https://lodash.com/docs/#get) is a well-established and flexible utility function for safe property access.
+	Lodash is also such a common dependency that you probably already have it, at least as a
+	transitive dependency.  
+	I recommend it if you aren't using TypeScript or Flow or you aren't so
+	strict about your static types.
+* [typesafe-get](https://github.com/pimterry/typesafe-get) seems very similar to *get-optional* for
+  TypeScript users. I can't say much about it because I haven't personally used it (I started
+	developing this one without knowing there was a typesafe alternative already). You might want
+	to check that out anyway!
+* [Optional chaining operator](https://github.com/tc39/proposal-optional-chaining) is *hopefully* coming
+  to the language itself at some point and there's already a Babel plugin for it. The spec might still
+	change, though, and some of the tools you are currently using might not support it.

@@ -1,7 +1,7 @@
 {
 	"name": "get-optional",
 	"version": "1.0.2",
-	"description": "Small and typesafe object property navigation for JS & TS",
+	"description": "Small and typesafe object property navigation for TypeScript and Flow",
 	"main": "lib/index.js",
 	"module": "lib/index.mjs",
 	"types": "lib/index.d.ts",
@@ -19,7 +19,14 @@
 	"keywords": [
 		"safe",
 		"navigation",
-		"property"
+		"property",
+		"typesafe",
+		"typescript",
+		"flow",
+		"optional chaining",
+		"get",
+		"undefined",
+		"null"
 	],
 	"author": "noppa",
 	"license": "MIT",
@@ -44,5 +51,12 @@
 		"lib/index.mjs",
 		"lib/index.js.flow"
 	],
-	"sideEffects": false
+	"sideEffects": false,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/noppa/get-optional.git"
+	},
+	"bus": {
+		"url": "https://github.com/noppa/get-optional/issues"
+	}
 }
