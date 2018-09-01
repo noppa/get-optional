@@ -18,3 +18,14 @@ class InputClass {
 	a: number = 42;
 }
 const inputClass$a: undefined | number = get(new InputClass(), 'a');
+declare function getPerson(): Person;
+
+interface Person {
+	name: string;
+	profession?: {
+		title: string;
+	};
+}
+const person: Person = getPerson();
+
+const title = get(person, 'profession', 'title');
