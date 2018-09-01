@@ -1,5 +1,5 @@
 // @flow
-import {head, get} from 'safeget';
+import {head, get} from 'get-optional';
 import {input} from '../flow-interfaces'
 import type {A, B, C, D, E} from '../flow-interfaces';
 

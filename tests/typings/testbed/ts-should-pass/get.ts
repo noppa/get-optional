@@ -1,4 +1,4 @@
-import {get} from 'safeget';
+import {get} from 'get-optional';
 import {A, B, C, D, E, input} from '../ts-interfaces';
 
 // Basic usage for all depths for get

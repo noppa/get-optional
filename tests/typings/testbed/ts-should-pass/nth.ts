@@ -1,4 +1,4 @@
-import {nth, get} from 'safeget';
+import {nth, get} from 'get-optional';
 import {A, B, C, D, E, input} from '../ts-interfaces';
 
 const list = [1, 2, 3];

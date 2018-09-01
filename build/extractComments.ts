@@ -5,7 +5,7 @@ import {promisify} from 'util';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as readline from 'readline';
-import * as safeget from '../lib/index.js';
+import * as getOptional from '../lib/index.js';
 
 const pathToLibFile = (filename: string) => path.join(__dirname, '../lib', filename);
 const readFile = promisify(fs.readFile);
@@ -76,7 +76,7 @@ function assertCodeExampleCorrectness(code: string, allowedFunctions: string[]) 
 	const functionImplementations = allowedFunctions.map((fnName: string) => {
 		return function wrappedSafegetFunction(...args: any[]) {
 			// tslint:disable-next-line:ban-types
-			const fn: Function = (safeget as any)[fnName] as any;
+			const fn: Function = (getOptional as any)[fnName] as any;
 			const result = fn(...args);
 			const expectedResult = expectedResults.shift();
 

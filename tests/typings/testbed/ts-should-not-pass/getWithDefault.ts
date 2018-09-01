@@ -1,4 +1,4 @@
-import {getWithDefault} from 'safeget';
+import {getWithDefault} from 'get-optional';
 import {A, B, C, D, E, input} from '../ts-interfaces';
 
 // Error: The result can also be bDefault

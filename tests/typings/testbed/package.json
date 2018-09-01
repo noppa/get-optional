@@ -1,8 +1,8 @@
 {
 	"private": true,
-	"name": "safeget-testbed-ts",
+	"name": "get-optional-testbed",
 	"version": "1.0.0",
 	"dependencies": {
-		"safeget": "file:../../../lib"
+		"get-optional": "file:../../../lib"
 	}
 }

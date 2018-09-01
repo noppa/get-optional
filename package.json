@@ -1,5 +1,5 @@
 {
-  "name": "safeget",
+  "name": "get-optional",
   "version": "1.0.0",
   "description": "Small and typesafe object property navigation for JS & TS",
 	"main": "lib/index.js",
@@ -7,6 +7,7 @@
   "scripts": {
 		"build": "ts-node --project tsconfig.json build/index.ts && yarn run build:es6module",
 		"build:es6module": "cat ./lib/index.js | sed 's/module.exports =/export/' > ./lib/index.mjs",
+		"prepublishOnly": "yarn build",
     "parseDocs": "ts-node --project tsconfig.json build/extractComments.ts",
     "debug": "nodemon --watch build -e ts --exec yarn build",
     "pretest": "yarn build && yarn --no-lockfile --cwd tests/typings/testbed",

@@ -1,4 +1,4 @@
-# safeget
+# get-optional
 
 Typesafe utility functions for getting a property value that's deep in a structure
 with possibly nullish intermediate values. 
@@ -9,15 +9,15 @@ arguments can be checked and return value inferred.
 ## Installation
 
 ```sh
-npm i safeget
+npm i get-optional
 ```
 
 ## Basic usage
 
 ```javascript
-import {get} from 'safeget'
+import {get} from 'get-optional'
 // Or:
-var get = require('safeget').get;
+var get = require('get-optional').get;
 
 get({ greeting: 'Hello World' }, 'greeting'); // => 'Hello World'
 ```
