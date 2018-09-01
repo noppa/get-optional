@@ -3,7 +3,8 @@
   "version": "1.0.1",
   "description": "Small and typesafe object property navigation for JS & TS",
   "main": "lib/index.js",
-  "module": "lib/index.mjs",
+	"module": "lib/index.mjs",
+	"types": "lib/index.d.ts",
   "scripts": {
     "build": "ts-node --project tsconfig.json build/index.ts && yarn run build:es6module",
     "build:es6module": "cat ./lib/index.js | sed 's/module.exports =/export/' > ./lib/index.mjs",
@@ -38,7 +39,10 @@
     "typescript": "^3.0.3"
   },
   "files": [
-    "./lib/*"
+		"lib/index.js",
+		"lib/index.d.ts",
+		"lib/index.mjs",
+		"lib/index.js.flow"
   ],
   "sideEffects": false
 }
