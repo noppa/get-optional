@@ -6,8 +6,9 @@
 	"module": "lib/index.mjs",
 	"types": "lib/index.d.ts",
 	"scripts": {
-		"build": "ts-node --project tsconfig.json build/index.ts && yarn run build:es6module",
-		"build:es6module": "cat ./lib/index.js | sed 's/module.exports =/export/' > ./lib/index.mjs",
+		"build": "yarn run build:runtime && yarn run build:types",
+		"build:types": "ts-node --project tsconfig.json build/index.ts",
+		"build:runtime": "tsc --project src/tsconfig.json",
 		"prepublishOnly": "yarn build",
 		"parseDocs": "ts-node --project tsconfig.json build/extractComments.ts",
 		"debug": "nodemon --watch build -e ts --exec yarn build",

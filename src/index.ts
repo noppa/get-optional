@@ -128,7 +128,7 @@ function head(list) {
 	return nthWithDefault(undefined, list, 0);
 }
 
-module.exports = {
+export {
 	get,
 	getWithDefault,
 	nth,
