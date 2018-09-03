@@ -12,9 +12,7 @@ const e: void | E = get(input, 'a', 'b', 'c', 'd', 'e');
 
 // Usage with record type & lists
 declare var pollResults: {[area: string]: number[]};
-const num: void | number[] = get(pollResults, 'Helsinki');
-
-const inputClassValue: void | number = get(new InputClass(), 'self', 'self', 'value');
+const num: void | number = get(pollResults, 'Helsinki', 0);
 
 // There is no possibility of "a" being a valid key of null, but
 // Flow allows this call anyway and infers return type to be void.

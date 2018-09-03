@@ -6,18 +6,18 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 		withDefaultValue,
 		prevIndexer(prevIndex, prevType) {
 			return prevIndex > 0
-				? `$ElementType<$ReadOnly<${prevType}>, Key${prevIndex}>`
+				? `$ElementType<${prevType}, Key${prevIndex}>`
 				: prevType;
 		},
 		notNil: type => `$NonMaybeType<${type}>`,
 		typeArgumentKeyN(keyNumber) {
 			const typeRestriction = keyNumber === 1
-				? '$Keys<$ReadOnly<$NonMaybeType<T>>>'
+				? '$Keys<$NonMaybeType<T>>'
 				: 'Prop';
 			return `Key${keyNumber}: ${typeRestriction}`;
 		},
 		returnType(keyNumber, prevType, defaultType = 'void') {
-			return `: ${defaultType} | $ElementType<$ReadOnly<${prevType}>, Key${keyNumber}>`;
+			return `: ${defaultType} | $ElementType<${prevType}, Key${keyNumber}>`;
 		},
 		exportVar(varname, typename) {
 			return `declare export var ${varname}: ${typename}`;
