@@ -4,16 +4,16 @@ interface D {
 	e: E;
 }
 interface C {
-	d: D;
+	d: undefined | D;
 	arr: boolean[];
 	readonlyArr: ReadonlyArray<boolean>;
 }
 interface B {
-	c: C;
+	c?: C;
 }
 
 interface A {
-	b: B;
+	b: null | B;
 }
 
 declare var input: null | {

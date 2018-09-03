@@ -3,7 +3,8 @@ import {A, B, C, D, E, input} from '../ts-interfaces';
 
 // Basic usage for all depths for get
 const a: undefined | A = get(input, 'a');
-const b: undefined | B = get(input, 'a', 'b');
+// input.a.b is marked as `null | B`, so the result is `undefined | null | B`
+const b: undefined | null | B = get(input, 'a', 'b');
 const c: undefined | C = get(input, 'a', 'b', 'c');
 const d: undefined | D = get(input, 'a', 'b', 'c', 'd');
 const e: undefined | E = get(input, 'a', 'b', 'c', 'd', 'e');
