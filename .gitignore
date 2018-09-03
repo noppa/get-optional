@@ -3,4 +3,5 @@ node_modules/
 /lib/index.d.ts
 /lib/index.js.flow
 /lib/index.mjs
+/lib/index.js
 *.log
