@@ -52,10 +52,10 @@ describe('nthWithDefault function', () => {
 		).toBe(defaultValue);
 	});
 
-	it('should return undefined when the accessed property is undefined', () => {
+	it('should return default value when the accessed property is undefined', () => {
 		expect(
 			nthWithDefault(defaultValue, ['first', undefined, 'third'], 1),
-		).toBe(undefined);
+		).toBe(defaultValue);
 	});
 });
 

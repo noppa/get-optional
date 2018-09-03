@@ -8,7 +8,6 @@ global.get$getOptional = require('../../lib/index.js').get;
 global.get$lodash = require('lodash/get');
 
 function setup() {
-	console.log('setup');
 	let result$simple, result$complex;
 	const simpleInput = {a: 42};
 	const complexInput = {

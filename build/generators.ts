@@ -71,11 +71,6 @@ function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 	yield exportVar('get' + functionNameSuffix, 'Getter' + functionNameSuffix) + ';';
 }
 
-interface NthConfig extends BaseConfig {
-	readOnly(type: string): string;
-	exportFn(functionDeclaration: string): string;
-}
-
 function buildWith(
 	codeGenIterable: Iterable<string>,
 	tabs: TabsProvider,

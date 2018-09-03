@@ -73,14 +73,14 @@ describe('getWithDefault function', () => {
 		expect(getWithDefault(defaultValue, obj, 'a', 'b')).toBe(defaultValue);
 	});
 
-	it('should return null when the last key points to null', () => {
+	it('should return default value when the last key points to null', () => {
 		const obj: Input = {
 			a: {
 				b: null,
 			},
 		};
 
-		expect(getWithDefault(defaultValue, obj, 'a', 'b')).toBe(null);
+		expect(getWithDefault(defaultValue, obj, 'a', 'b')).toBe(defaultValue);
 	});
 
 	it('should return default value when input is null', () => {
