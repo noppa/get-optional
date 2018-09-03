@@ -1,3 +1,28 @@
+function fmap(fn: Function, object, key1, key2, key3, key4, key5) {
+	let value1, value2, value3, value4;
+	if (object == null) 		return undefined;
+	
+	value1 = object[key1];
+	if (key2 === undefined) return fn(value1, object);
+	if (value1 == null) 		return undefined;
+
+	value2 = value1[key2];
+	if (key3 === undefined) return fn(value2, value1);
+	if (value2 == null) 		return undefined;
+
+	value3 = value2[key3];
+	if (key4 === undefined) return fn(value3, value2);
+	if (value3 == null) 		return undefined;
+
+	value4 = value3[key4];
+	if (key5 === undefined) return fn(value4, value3);
+	if (value4 == null) 		return undefined;
+
+	return fn(value4[key5], value4);
+}
+
+function identity(a) { return a; }
+
 /**
  * Gets the value at a given path.
  * Path must consist of 1-5 string keys.  
@@ -13,28 +38,9 @@
  * getWithDefault('default', object, 'a', 'b', 'value'); // => 'default'
  * ```
  */
-function getWithDefault(defaultValue, object, key1, key2, key3, key4, key5) {
-	var value1, value2, value3, value4, value5;
-	if (key1 === undefined)	return object;
-	if (object == null) 		return defaultValue;
-	
-	value1 = object[key1];
-	if (key2 === undefined)	return value1;
-	if (value1 == null) 		return defaultValue;
-
-	value2 = value1[key2];
-	if (key3 === undefined)	return value2;
-	if (value2 == null) 		return defaultValue;
-
-	value3 = value2[key3];
-	if (key4 === undefined)	return value3;
-	if (value3 == null) 		return defaultValue;
-
-	value4 = value3[key4];
-	if (key5 === undefined)	return value4;
-	if (value4 == null) 		return defaultValue;
-
-	return value4[key5];
+function getWithDefault(defaultValue, obj, key1, key2, key3, key4, key5) {
+	const result =       fmap(identity, obj, key1, key2, key3, key4, key5);
+	return result == null ? defaultValue : result;
 }
 
 /**
@@ -52,28 +58,19 @@ function getWithDefault(defaultValue, object, key1, key2, key3, key4, key5) {
  * get(object, 'a', 'b', 'value'); // => undefined
  * ```
  */
-function get(object, key1, key2, key3, key4, key5) {
-	return getWithDefault(undefined, object, key1, key2, key3, key4, key5);
+function get           (obj, key1, key2, key3, key4, key5) {
+	return fmap(identity, obj, key1, key2, key3, key4, key5);
 }
 
-/**
- * Gets the element at a given index of an array.
- * 
- * If the index is out of bounds (larger than the length of the array),
- * `defaultValue` is returned instead. 
- * 
- * @example
- * ```javascript
- * const list = ['first', 'second', 'third'];
- * 
- * nthWithDefault('default', list, 1); // => 'second'
- * nthWithDefault('default', list, 3); // => 'default'
- * ```
- */
-function nthWithDefault(defaultValue, list, index) {
-	return list == null || index < 0 || index >= list.length
-		? defaultValue
-		: list[index];
+// tslint:disable-next-line:no-empty
+function noop() {}
+
+function bind(fn, context) {
+	return typeof fn === 'function' ? fn.bind(context) : noop;
+}
+
+function method    (obj, key1, key2, key3, key4, key5) {
+	return fmap(bind, obj, key1, key2, key3, key4, key5);
 }
 
 /**
@@ -91,7 +88,28 @@ function nthWithDefault(defaultValue, list, index) {
  * ```
  */
 function nth(list, index) {
-	return nthWithDefault(undefined, list, index);
+	return list == null || index < 0 || index >= list.length
+		? undefined
+		: list[index];
+}
+
+/**
+ * Gets the element at a given index of an array.
+ * 
+ * If the index is out of bounds (larger than the length of the array),
+ * `defaultValue` is returned instead. 
+ * 
+ * @example
+ * ```javascript
+ * const list = ['first', 'second', 'third'];
+ * 
+ * nthWithDefault('default', list, 1); // => 'second'
+ * nthWithDefault('default', list, 3); // => 'default'
+ * ```
+ */
+function nthWithDefault(defaultValue, list, index) {
+	const result = nth(list, index);
+	return result == null ? defaultValue : result;
 }
 
 /**
@@ -125,7 +143,7 @@ function headWithDefault(defaultValue, list) {
  * ```
  */
 function head(list) {
-	return nthWithDefault(undefined, list, 0);
+	return nth(list, 0);
 }
 
 export {
@@ -135,4 +153,5 @@ export {
 	nthWithDefault,
 	head,
 	headWithDefault,
+	method,
 };
