@@ -34,13 +34,16 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 }
 
 function* generatorForNth() {
-	yield `declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;`;
-	yield 'declare export function nthWithDefault<DefaultValue, T>' +
-		'(defaultValue: DefaultValue, list: ?$ReadOnlyArray<T>, n: number): void | T;';
+	const withDefault = `DefaultValue | ${notNil('T')};`;
+	const withoutDefault = 'void | T;';
 
-	yield `declare export function head<T>(list: ?$ReadOnlyArray<T>): void | T;`;
+	yield 'declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): ' + withoutDefault;
+	yield 'declare export function nthWithDefault<DefaultValue, T>' +
+		'(defaultValue: DefaultValue, list: ?$ReadOnlyArray<T>, n: number): ' + withDefault;
+
+	yield 'declare export function head<T>(list: ?$ReadOnlyArray<T>): ' + withoutDefault;
 	yield 'declare export function headWithDefault<DefaultValue, T>' +
-		'(defaultValue: DefaultValue, list: ?$ReadOnlyArray<T>): void | T;';
+		'(defaultValue: DefaultValue, list: ?$ReadOnlyArray<T>): ' + withDefault;
 }
 
 export default function buildFlow() {

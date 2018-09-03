@@ -31,13 +31,16 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 }
 
 function* generatorForNth() {
-	yield `export function nth<T>(list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;`;
-	yield 'export function nthWithDefault<DefaultValue, T>' +
-		'(defaultValue: DefaultValue, list: null | undefined | ReadonlyArray<T>, n: number): undefined | T;';
+	const withDefault = `DefaultValue | ${notNil('T')};`;
+	const withoutDefault = 'undefined | T;';
 
-	yield `export function head<T>(list: null | undefined | ReadonlyArray<T>): undefined | T;`;
+	yield 'export function nth<T>(list: null | undefined | ReadonlyArray<T>, n: number): ' + withoutDefault;
+	yield 'export function nthWithDefault<DefaultValue, T>' +
+		'(defaultValue: DefaultValue, list: null | undefined | ReadonlyArray<T>, n: number): ' + withDefault;
+
+	yield 'export function head<T>(list: null | undefined | ReadonlyArray<T>): ' + withoutDefault;
 	yield 'export function headWithDefault<DefaultValue, T>' +
-		'(defaultValue: DefaultValue, list: null | undefined | ReadonlyArray<T>): undefined | T;';
+		'(defaultValue: DefaultValue, list: null | undefined | ReadonlyArray<T>): ' + withDefault;
 }
 
 export default function buildTs() {
