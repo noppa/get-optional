@@ -17,3 +17,8 @@ const num: void | number = get(pollResults, 'Helsinki', 0);
 // There is no possibility of "a" being a valid key of null, but
 // Flow allows this call anyway and infers return type to be void.
 const fromNull: void = get(null, 'a');
+
+// Some sort of workaround for cases where input is a class.
+// NOTE: Does not allow accessing inputInstance.self.value :(
+const inputInstance = new InputClass();
+const inputClassValue: void | number = get((inputInstance: $ReadOnly<InputClass>), 'value');
