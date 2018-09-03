@@ -5,16 +5,16 @@ type D = {
 	e: E;
 }
 type C = {
-	d: D;
+	d: void | D;
 	arr: boolean[];
 	readonlyArr: $ReadOnlyArray<boolean>;
 }
 type B = {
-	c: C;
+	c?: C;
 }
 
 type A = {
-	b: B;
+	b: null | B;
 }
 
 declare var input: null | {

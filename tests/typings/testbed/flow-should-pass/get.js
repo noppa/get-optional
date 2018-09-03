@@ -5,7 +5,8 @@ import type {A, B, C, D, E} from '../flow-interfaces';
 
 // Basic usage for all depths
 const a: void | A = get(input, 'a');
-const b: void | B = get(input, 'a', 'b');
+// input.a.b is marked as `null | B`, so the result is `void | null | B`
+const b: ?B = get(input, 'a', 'b');
 const c: void | C = get(input, 'a', 'b', 'c');
 const d: void | D = get(input, 'a', 'b', 'c', 'd');
 const e: void | E = get(input, 'a', 'b', 'c', 'd', 'e');

@@ -3,19 +3,25 @@
 exports[`Flow type definitions should not typecheck for incorrect usage 1`] = `
 "Error --------------------------------------------------------------------------------- flow-should-not-pass/get.js:7:14
 
-Cannot assign \`get(...)\` to \`c\` because undefined [1] is incompatible with \`C\` [2].
+Cannot assign \`get(...)\` to \`c\` because:
+ - undefined [1] is incompatible with \`C\` [2].
+ - undefined [3] is incompatible with \`C\` [2].
 
    flow-should-not-pass/get.js:7:14
     7| const c: C = get(input, 'a', 'b', 'c');
                     ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 References:
-   node_modules/get-optional/index.js.flow:21:5
-   21| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>>, Key3>;
-           ^^^^ [1]
+   flow-interfaces.js:13:6
+   13| 	c?: C;
+
+            ^ [1]
    flow-should-not-pass/get.js:7:10
     7| const c: C = get(input, 'a', 'b', 'c');
                 ^ [2]
+   node_modules/get-optional/index.js.flow:21:5
+   21| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>>, Key3>;
+           ^^^^ [3]
 
 
 Error -------------------------------------------------------------------------------- flow-should-not-pass/get.js:10:11
@@ -156,8 +162,8 @@ References:
    46| 		Key1: $Keys<$NonMaybeType<T>>,
    47| 	>
    48| 		(defaultValue: DefaultValue, object: T, key1: Key1)
-   49| 		: DefaultValue | $ElementType<$NonMaybeType<T>, Key1>;
-       		----------------------------------------------------^ [1]
+   49| 		: DefaultValue | $NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>;
+       		-------------------------------------------------------------------^ [1]
    flow-interfaces.js:21:5
    21| 	a: A;
 
@@ -213,10 +219,10 @@ Cannot call \`nth\` with \`get(...)\` bound to \`list\` because \`B\` [1] is inc
                               ^^^^^^^^^^^^^^^^^^^^
 
 References:
-   flow-interfaces.js:17:5
-   17| 	b: B;
+   flow-interfaces.js:17:12
+   17| 	b: null | B;
 
-           ^ [1]
+                  ^ [1]
    node_modules/get-optional/index.js.flow:88:39
    88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
                                              ^^^^^^^^^^^^^^^^^ [2]
@@ -238,7 +244,7 @@ References:
 
 
 
-Found 13 errors
+Found 14 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches

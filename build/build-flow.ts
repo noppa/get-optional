@@ -1,23 +1,31 @@
 import { TabsProvider, writeFile, relativeToRoot } from './shared';
 import { getter, buildWith } from './generators';
 
+const notNil = (type: string) => `$NonMaybeType<${type}>`;
+
 function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	yield* getter(tabs, {
 		withDefaultValue,
+		notNil,
 		prevIndexer(prevIndex, prevType) {
 			return prevIndex > 0
 				? `$ElementType<${prevType}, Key${prevIndex}>`
 				: prevType;
 		},
-		notNil: type => `$NonMaybeType<${type}>`,
 		typeArgumentKeyN(keyNumber) {
 			const typeRestriction = keyNumber === 1
 				? '$Keys<$NonMaybeType<T>>'
 				: 'Prop';
 			return `Key${keyNumber}: ${typeRestriction}`;
 		},
-		returnType(keyNumber, prevType, defaultType = 'void') {
-			return `: ${defaultType} | $ElementType<${prevType}, Key${keyNumber}>`;
+		returnType(keyNumber, prevType, defaultType) {
+			let successResult = `$ElementType<${prevType}, Key${keyNumber}>`;
+			if (defaultType) {
+				successResult = notNil(successResult);
+			} else {
+				defaultType = 'void';
+			}
+			return `: ${defaultType} | ` + successResult;
 		},
 		exportVar(varname, typename) {
 			return `declare export var ${varname}: ${typename}`;

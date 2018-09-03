@@ -1,6 +1,5 @@
 import {execFile} from 'child_process';
 import * as path from 'path';
-import * as fs from 'fs';
 
 const executableExtension = process.platform === 'win32' ? '.cmd' : '';
 const testbed = path.join(__dirname, 'testbed');

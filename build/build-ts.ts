@@ -1,19 +1,28 @@
 import {TabsProvider, writeFile, relativeToRoot} from './shared';
 import { getter, buildWith } from './generators';
 
+const notNil = (type: string) => `NonNullable<${type}>`;
+
 function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	yield* getter(tabs, {
+		notNil,
 		withDefaultValue,
 		prevIndexer(prevIndex, prevType) {
 			const indexer = prevIndex > 0 ? `[Key${prevIndex}]` : '';
 			return prevType + indexer;
 		},
-		notNil: type => `NonNullable<${type}>`,
 		typeArgumentKeyN(keyNumber: number, prevType) {
 			return `Key${keyNumber} extends keyof ${prevType}`;
 		},
-		returnType(keyNumber, prevType, defaultType = 'undefined') {
-			return `: ${defaultType} | ${prevType}[Key${keyNumber}]`;
+		returnType(keyNumber, prevType, defaultType) {
+			let successType = `${prevType}[Key${keyNumber}]`;
+			if (defaultType) {
+				successType = notNil(successType);
+			} else {
+				defaultType = 'undefined';
+			}
+
+			return `: ${defaultType} | ` + successType;
 		},
 		exportVar(varname, typename) {
 			return `export const ${varname}: ${typename}`;
