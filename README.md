@@ -39,7 +39,7 @@ const object = { a: { b: null, c: { value: 42 } } };
 
 get(object, 'a', 'c', 'value'); // => 42
 get(object, 'a', 'b', 'value'); // => undefined
-get(object, 'a', 'b'); 					// => null
+get(object, 'a', 'b');          // => null
 ```
 
 ### `getWithDefault(defaultValue, object, key1, key2, key3, key4, key5)`
