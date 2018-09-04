@@ -30,11 +30,15 @@ function* generatorForGetters(
 	});
 }
 
+const noopType = {
+	definition: `(...args: any[]) => void`,
+	name: 'Noop',
+};
+
 function returnTypeForMethodGetter(keyNumber: number, prevType: string): string {
 	// The method function either returns the item in path (which should be a function)
 	// or a "noop" function.
-	const noopType = `((...args: any[]) => void)`;
-	return returnTypeForGetter(keyNumber, prevType, noopType);
+	return returnTypeForGetter(keyNumber, prevType, noopType.name);
 }
 
 function returnTypeForGetter(keyNumber: number, prevType: string, defaultType?: string): string {
@@ -67,10 +71,11 @@ export default function buildFlow() {
 	const fileStart = [
 		'// @flow',
 		'type Prop = string | number;',
+		`type ${noopType.name} = ${noopType.definition};`,
 		'',
 	];
 	const generatedGetters = [false, true]
-		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue, false), tabs))
+		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue, false), tabs));
 	const generatedNth = buildWith(generatorForNth(), tabs);
 	const generatedMethodGetter = buildWith(generatorForGetters(tabs, false, true), tabs);
 
@@ -79,6 +84,7 @@ export default function buildFlow() {
 		...generatedGetters,
 		generatedNth,
 		generatedMethodGetter,
+		`declare export var noop: ${noopType.name};`,
 	].join(br);
 
 	return writeFile(relativeToRoot('lib', 'index.js.flow'), result);

@@ -82,6 +82,7 @@ export default function buildTs() {
 		generatedNth,
 		br,
 		generatedMethodGetter,
+		`export function noop(...args: any[]): undefined;`,
 	].join(br);
 
 	return writeFile(relativeToRoot('lib', 'index.d.ts'), result);
