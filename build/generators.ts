@@ -1,20 +1,19 @@
 import { TabsProvider } from './shared';
 
-interface BaseConfig {
+interface GetterConfig {
 	withDefaultValue: boolean;
-	returnType(keyNumber: number, prevType: string, defaultType: undefined | string): string;
-}
-
-interface GetterConfig extends BaseConfig {
+	forMethod: boolean;
 	prevIndexer(prevIndex: number, pervType: string): string;
 	notNil(type: string): string;
 	typeArgumentKeyN(keyNumber: number, prevType: string): string;
 	exportVar(varname: string, typename: string): string;
+	returnType(keyNumber: number, prevType: string, defaultType: undefined | string): string;
 }
 
 function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 	const {
 		withDefaultValue,
+		forMethod,
 		prevIndexer,
 		notNil,
 		typeArgumentKeyN,
@@ -22,7 +21,8 @@ function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 		exportVar,
 	} = config;
 
-	const functionNameSuffix = withDefaultValue ? 'WithDefault' : '';
+	const functionNameSuffix = withDefaultValue ? 'WithDefault'
+		: (forMethod ? 'ForMethod' : '');
 	yield `export interface Getter${functionNameSuffix} {`;
 
 	tabs.indent();
@@ -68,7 +68,8 @@ function* getter(tabs: TabsProvider, config: GetterConfig): Iterable<string> {
 	tabs.outdent();
 
 	yield '}\n';
-	yield exportVar('get' + functionNameSuffix, 'Getter' + functionNameSuffix) + ';';
+	const functionName = forMethod ? 'method' : ('get' + functionNameSuffix);
+	yield exportVar(functionName, 'Getter' + functionNameSuffix) + ';';
 }
 
 function buildWith(

@@ -7,6 +7,7 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	yield* getter(tabs, {
 		notNil,
 		withDefaultValue,
+		forMethod: false,
 		prevIndexer(prevIndex, prevType) {
 			const indexer = prevIndex > 0 ? `[Key${prevIndex}]` : '';
 			return prevType + indexer;
@@ -30,6 +31,31 @@ function* generatorForGetters(tabs: TabsProvider, withDefaultValue: boolean) {
 	});
 }
 
+function* generatorForMethod(tabs: TabsProvider) {
+	yield `type ArgumentsType<Fn> = Fn extends (...args: infer Args) => any ? Args : never;`;
+	yield `type ReturnType<Fn> = Fn extends (...args: any[]) => infer R ? R : never;`;
+
+	yield* getter(tabs, {
+		notNil,
+		withDefaultValue: false,
+		forMethod: true,
+		prevIndexer(prevIndex, prevType) {
+			const indexer = prevIndex > 0 ? `[Key${prevIndex}]` : '';
+			return prevType + indexer;
+		},
+		typeArgumentKeyN(keyNumber: number, prevType) {
+			return `Key${keyNumber} extends keyof ${prevType}`;
+		},
+		returnType(keyNumber, prevType) {
+			const lastPropety = `${prevType}[Key${keyNumber}]`;
+			return `: (...args: ArgumentsType<${lastPropety}>) => ReturnType<${lastPropety}>`;
+		},
+		exportVar(varname, typename) {
+			return `export const ${varname}: ${typename}`;
+		},
+	});
+}
+
 function* generatorForNth() {
 	const withDefault = `DefaultValue | ${notNil('T')};`;
 	const withoutDefault = 'undefined | T;';
@@ -45,11 +71,18 @@ function* generatorForNth() {
 
 export default function buildTs() {
 	const tabs = new TabsProvider();
-	const result = [false, true]
-		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue), tabs))
-		.join('\n')
-		+ '\n'
-		+ buildWith(generatorForNth(), tabs);
+	const generatedGetters = [false, true]
+		.map(withDefaultValue => buildWith(generatorForGetters(tabs, withDefaultValue), tabs));
+	const generatedNth = buildWith(generatorForNth(), tabs);
+	const generatedMethodGetter = buildWith(generatorForMethod(tabs), tabs);
+	const br = '\n';
+	const result = [
+		...generatedGetters,
+		br,
+		generatedNth,
+		br,
+		generatedMethodGetter,
+	].join(br);
 
 	return writeFile(relativeToRoot('lib', 'index.d.ts'), result);
 }
