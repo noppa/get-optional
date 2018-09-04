@@ -8,6 +8,8 @@
 		"get.ts",
 		"getWithDefault.ts",
 		"nth.ts",
-		"head.ts"
+		"nthWithDefault.ts",
+		"head.ts",
+		"method.ts"
 	]
 }

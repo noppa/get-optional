@@ -7,6 +7,8 @@
 	"files": [
 		"get.ts",
 		"getWithDefault.ts",
-		"nth.ts"
+		"nth.ts",
+		"nthWithDefault.ts",
+		"method.ts"
 	]
 }

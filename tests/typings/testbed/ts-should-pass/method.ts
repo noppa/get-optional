@@ -1,15 +1,4 @@
 import {method} from 'get-optional';
+import {methodInput} from '../ts-interfaces';
 
-interface Input {
-	a?: {
-		b: {
-			c: {
-				fn: null | ((a: string) => number),
-			},
-		},
-	};
-}
-
-declare var input: ?Input;
-
-const result: number | undefined = method(input, 'a', 'b', 'c', 'fn')('Hello');
+const result: number | undefined = method(methodInput, 'a', 'b', 'c', 'fn')('Hello');

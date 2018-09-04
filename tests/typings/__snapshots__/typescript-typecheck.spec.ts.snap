@@ -9,6 +9,8 @@ ts-should-not-pass/getWithDefault.ts(5,7): error TS2322: Type 'C | B' is not ass
   Type 'B' is not assignable to type 'C'.
     Property 'd' is missing in type 'B'.
 ts-should-not-pass/getWithDefault.ts(9,48): error TS2345: Argument of type '\\"c\\"' is not assignable to parameter of type '\\"b\\"'.
+ts-should-not-pass/method.ts(5,81): error TS2345: Argument of type '42' is not assignable to parameter of type 'string'.
+ts-should-not-pass/method.ts(11,7): error TS2322: Type 'number' is not assignable to type 'string | undefined'.
 ts-should-not-pass/nth.ts(5,7): error TS2322: Type 'boolean | undefined' is not assignable to type 'boolean'.
   Type 'undefined' is not assignable to type 'boolean'.
 ts-should-not-pass/nth.ts(8,7): error TS2322: Type 'boolean | undefined' is not assignable to type 'string | undefined'.
@@ -17,5 +19,12 @@ ts-should-not-pass/nth.ts(11,24): error TS2345: Argument of type 'B | null | und
   Type 'B' is not assignable to type 'ReadonlyArray<{}>'.
     Property 'length' is missing in type 'B'.
 ts-should-not-pass/nth.ts(14,40): error TS2345: Argument of type '\\"0\\"' is not assignable to parameter of type 'number'.
+ts-should-not-pass/nthWithDefault.ts(11,7): error TS2322: Type 'number | DefaultValue' is not assignable to type 'number'.
+  Type 'DefaultValue' is not assignable to type 'number'.
+ts-should-not-pass/nthWithDefault.ts(14,7): error TS2322: Type 'number | DefaultValue' is not assignable to type 'string | DefaultValue'.
+  Type 'number' is not assignable to type 'string | DefaultValue'.
+ts-should-not-pass/nthWithDefault.ts(17,7): error TS2322: Type '{} | DefaultValue' is not assignable to type 'DefaultValue'.
+  Type '{}' is not assignable to type 'DefaultValue'.
+    Property 'kind' is missing in type '{}'.
 "
 `;
