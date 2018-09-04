@@ -1,10 +1,6 @@
 import {nth, get} from 'get-optional';
 import {A, B, C, D, E, input} from '../ts-interfaces';
 
-const list = [1, 2, 3];
-const first: undefined | number = nth(list, 0);
-const nonExistent: undefined | number = nth(list, 100);
-
 // Error: The result can also be undefined
 const fromNullableList: boolean = nth(get(input, 'a', 'b', 'c', 'arr'), 0);
 

@@ -243,8 +243,60 @@ References:
                                                                    ^^^^^^ [2]
 
 
+Error --------------------------------------------------------------------- flow-should-not-pass/nthWithDefault.js:11:38
 
-Found 14 errors
+Cannot call \`nthWithDefault\` with \`defaultValue\` bound to \`defaultValue\` because \`DefaultValue\` [1] is incompatible with
+number [2].
+
+   flow-should-not-pass/nthWithDefault.js:11:38
+   11| const first: number = nthWithDefault(defaultValue, list, 0);
+
+                                            ^^^^^^^^^^^^
+
+References:
+   flow-should-not-pass/nthWithDefault.js:7:22
+    7| const defaultValue = new DefaultValue();
+
+                            ^^^^^^^^^^^^^^^^^^ [1]
+   flow-should-not-pass/nthWithDefault.js:11:14
+   11| const first: number = nthWithDefault(defaultValue, list, 0);
+
+                    ^^^^^^ [2]
+
+
+Error --------------------------------------------------------------------- flow-should-not-pass/nthWithDefault.js:14:44
+
+Cannot assign \`nthWithDefault(...)\` to \`nonExistent\` because:
+ - number [1] is incompatible with string [2].
+ - number [3] is incompatible with string [2].
+ - number [4] is incompatible with string [2].
+
+   flow-should-not-pass/nthWithDefault.js:14:44
+   14| const nonExistent: DefaultValue | string = nthWithDefault(defaultValue, list, 100);
+
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-should-not-pass/nthWithDefault.js:9:15
+    9| const list = [1, 2, 3];
+
+                     ^ [1]
+   flow-should-not-pass/nthWithDefault.js:14:35
+   14| const nonExistent: DefaultValue | string = nthWithDefault(defaultValue, list, 100);
+
+                                         ^^^^^^ [2]
+   flow-should-not-pass/nthWithDefault.js:9:18
+    9| const list = [1, 2, 3];
+
+                        ^ [3]
+   flow-should-not-pass/nthWithDefault.js:9:21
+    9| const list = [1, 2, 3];
+
+                           ^ [4]
+
+
+
+Found 18 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches
