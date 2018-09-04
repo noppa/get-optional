@@ -62,14 +62,15 @@ function get           (obj, key1, key2, key3, key4, key5) {
 	return fmap(identity, obj, key1, key2, key3, key4, key5);
 }
 
-// tslint:disable-next-line:no-empty
-function noop() {}
+function noop() {} // tslint:disable-line:no-empty
 
 function bind(fn, context) {
-	return typeof fn === 'function' ? fn.bind(context) : noop;
+	if (typeof fn === 'function') {
+		return fn.bind(context);
+	}
 }
 
-function method    (obj, key1, key2, key3, key4, key5) {
+function method            (obj, key1, key2, key3, key4, key5) {
 	const result = fmap(bind, obj, key1, key2, key3, key4, key5);
 	return result == null ? noop : result;
 }
@@ -155,4 +156,5 @@ export {
 	head,
 	headWithDefault,
 	method,
+	noop,
 };

@@ -10,6 +10,6 @@ interface Input {
 	};
 }
 
-declare var input: Input;
+declare var input: ?Input;
 
 const result: number | undefined = method(input, 'a', 'b', 'c', 'fn')('Hello');
