@@ -4,23 +4,23 @@
 // and the previous context object or returns undefined if the path is not found.
 function mapNullable(fn: Function, object, key1, key2, key3, key4, key5) {
 	let value1, value2, value3, value4;
-	if (object == null)			return undefined;
+	if (object == null)     return undefined;
 	
 	value1 = object[key1];
-	if (key2 === undefined)	return fn(value1, object);
-	if (value1 == null) 		return undefined;
+	if (key2 === undefined) return fn(value1, object);
+	if (value1 == null)     return undefined;
 
 	value2 = value1[key2];
-	if (key3 === undefined)	return fn(value2, value1);
-	if (value2 == null) 		return undefined;
+	if (key3 === undefined) return fn(value2, value1);
+	if (value2 == null)     return undefined;
 
 	value3 = value2[key3];
-	if (key4 === undefined)	return fn(value3, value2);
-	if (value3 == null) 		return undefined;
+	if (key4 === undefined) return fn(value3, value2);
+	if (value3 == null)     return undefined;
 
 	value4 = value3[key4];
-	if (key5 === undefined)	return fn(value4, value3);
-	if (value4 == null) 		return undefined;
+	if (key5 === undefined) return fn(value4, value3);
+	if (value4 == null)     return undefined;
 
 	return fn(value4[key5], value4);
 }
