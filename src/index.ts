@@ -1,4 +1,7 @@
-function fmap(fn: Function, object, key1, key2, key3, key4, key5) {
+// Base implementation for all getters.
+// Gets the value in the given path and calls `fn` with it (and the previous
+// context object) or returns undefined if the path is not found.
+function mapNullable(fn: Function, object, key1, key2, key3, key4, key5) {
 	let value1, value2, value3, value4;
 	if (object == null) 		return undefined;
 	
@@ -38,8 +41,8 @@ function identity(a) { return a; }
  * getWithDefault('default', object, 'a', 'b', 'value'); // => 'default'
  * ```
  */
-function getWithDefault(defaultValue, obj, key1, key2, key3, key4, key5) {
-	const result =       fmap(identity, obj, key1, key2, key3, key4, key5);
+function getWithDefault (defaultValue, obj, key1, key2, key3, key4, key5) {
+	const result = mapNullable(identity, obj, key1, key2, key3, key4, key5);
 	return result == null ? defaultValue : result;
 }
 
@@ -58,20 +61,53 @@ function getWithDefault(defaultValue, obj, key1, key2, key3, key4, key5) {
  * get(object, 'a', 'b', 'value'); // => undefined
  * ```
  */
-function get           (obj, key1, key2, key3, key4, key5) {
-	return fmap(identity, obj, key1, key2, key3, key4, key5);
+function get                  (obj, key1, key2, key3, key4, key5) {
+	return mapNullable(identity, obj, key1, key2, key3, key4, key5);
 }
 
+/**
+ * No-operation function. Doesn't do anything, returns `undefined`.
+ */
 function noop() {} // tslint:disable-line:no-empty
 
 function bind(fn, context) {
 	if (typeof fn === 'function') {
 		return fn.bind(context);
+	} else {
+		return undefined;
 	}
 }
-
-function method            (obj, key1, key2, key3, key4, key5) {
-	const result = fmap(bind, obj, key1, key2, key3, key4, key5);
+/**
+ * Gets the method at a given path.
+ * Path must consist of 1-5 string keys.  
+ * The returned function will have `this` context bound to the second
+ * to last value in the chain that contained the method.
+ * 
+ * If one of the keys in path (before the last key) points
+ * to a null or undefined value or if the last value is not a function,
+ * no-operation function `noop` is returned instead.
+ * 
+ * @example
+ * ```
+ * const container = {
+ * 	counter: {
+ *  	value: 1,
+ * 		add(amount) {
+ * 			this.value += amount;
+ * 		}
+ * 	}
+ * };
+ * 
+ * method(container, 'counter', 'add')(2);
+ * container.counter.value; // => 3
+ * 
+ * // Doesn't do anything because therer's no "subtract" method.
+ * method(container, 'counter', 'subtract')(2);
+ * container.counter.value; // => 3
+ * ```
+ */
+function method                   (obj, key1, key2, key3, key4, key5) {
+	const result = mapNullable(bind, obj, key1, key2, key3, key4, key5);
 	return result == null ? noop : result;
 }
 

@@ -26,24 +26,9 @@ get({ greeting: 'Hello World' }, 'greeting'); // => 'Hello World'
 
 ## API
 
-### `getWithDefault(defaultValue, object, key1, key2, key3, key4, key5)`
-
-Gets the value at a given path.
-Path must consist of 1-5 string keys.
-If one of the keys in path (before the last key) points
-to a null or undefined value, `defaultValue` is returned instead.
-
-**Example**
-```javascript
-const object = { a: { b: null, c: { value: 42 } } };
-
-getWithDefault('default', object, 'a', 'c', 'value'); // => 42
-getWithDefault('default', object, 'a', 'b', 'value'); // => 'default'
-```
-
 ### `get(object, key1, key2, key3, key4, key5)`
 
-Gets the value at a given path.
+Gets the value at a given path.  
 Path must consist of 1-5 string keys.
 If one of the keys in path (before the last key) points
 to a null or undefined value, `undefined` is returned instead.
@@ -56,18 +41,19 @@ get(object, 'a', 'c', 'value'); // => 42
 get(object, 'a', 'b', 'value'); // => undefined
 ```
 
-### `nthWithDefault(defaultValue, list, index)`
+### `getWithDefault(defaultValue, object, key1, key2, key3, key4, key5)`
 
-Gets the element at a given index of an array.
-If the index is out of bounds (larger than the length of the array),
-`defaultValue` is returned instead.
+Gets the value at a given path.  
+Path must consist of 1-5 string keys.
+If one of the keys in path (before the last key) points
+to a null or undefined value, `defaultValue` is returned instead.
 
 **Example**
 ```javascript
-const list = ['first', 'second', 'third'];
+const object = { a: { b: null, c: { value: 42 } } };
 
-nthWithDefault('default', list, 1); // => 'second'
-nthWithDefault('default', list, 3); // => 'default'
+getWithDefault('default', object, 'a', 'c', 'value'); // => 42
+getWithDefault('default', object, 'a', 'b', 'value'); // => 'default'
 ```
 
 ### `nth(list, index)`
@@ -84,16 +70,18 @@ nth(list, 1); // => 'second'
 nth(list, 3); // => undefined
 ```
 
-### `headWithDefault(defaultValue, list)`
-Gets the first element of an array.
-If the array is empty, `defaultValue` is returned instead.
+### `nthWithDefault(defaultValue, list, index)`
+
+Gets the element at a given index of an array.
+If the index is out of bounds (larger than the length of the array),
+`defaultValue` is returned instead.
 
 **Example**
 ```javascript
 const list = ['first', 'second', 'third'];
 
-headWithDefault('default', list); // => 'first'
-headWithDefault('default', []);   // => 'default'
+nthWithDefault('default', list, 1); // => 'second'
+nthWithDefault('default', list, 3); // => 'default'
 ```
 
 ### `head(list)`
@@ -108,19 +96,64 @@ head(list); // => 'first'
 head([]); // => undefined
 ```
 
+### `headWithDefault(defaultValue, list)`
+Gets the first element of an array.
+If the array is empty, `defaultValue` is returned instead.
+
+**Example**
+```javascript
+const list = ['first', 'second', 'third'];
+
+headWithDefault('default', list); // => 'first'
+headWithDefault('default', []);   // => 'default'
+```
+
+### `method(obj, key1, key2, key3, key4, key5)`
+
+Gets the method at a given path.    
+Path must consist of 1-5 string keys.
+The returned function will have `this` context bound to the second
+to last value in the chain, i.e. the to the object that contained
+the function.
+
+If one of the keys in path points to a null or undefined value
+or if the last value is not a function, no-operation
+function `noop` is returned instead.
+
+**Example**
+```javascript
+const container = {
+  counter: {
+    value: 1,
+		add(amount) {
+			this.value += amount;
+		}
+	}
+};
+
+method(container, 'counter', 'add')(2);
+// container.counter.value === 3
+
+// Doesn't do anything because therer's no "subtract" method.
+method(container, 'counter', 'subtract')(2);
+// container.counter.value === 3
+```
+
 ## Caveats
-* The type definition for Flow doesn't allow accessing array indexes using `get`/`getWithDefault`.
-  Use `nth`/`nthWithDefault`/`head`/`headWithDefault` instead:
-	```javascript
-	 nth(get(input, 'foo', 'arrayProperty'), 1);
-	```
+* The type definition for Flow doesn't allow accessing class or interface
+  properties `get`/`getWithDefault`. Try to use types defined with `type` declarations
+	instead, or cast the class instance to a indexable type before using
+	(see _tests/typings/testbed/flow-should-pass/get.js_ for an example).
+* No more than 5 keys are supported, unlike in most other similar implementations where
+  any number of keys can be passed as the path. This is done to match the runtime behaviour
+	with the static type definition and for better runtime performance.
 * This library is **NOT** meant to be used for accessing *dynamic* property paths.
 	```javascript
 	// Don't do this
 	get(input, ...propertyNamesList);
 	```
   There are other libraries that handle that use-case better and safer, the focus of this one
-	is in type safety, not flexibility or fault-tolerance.
+	is in type safety and performance, not flexibility.
 
 ## Other tools like this
 * [lodash.get](https://lodash.com/docs/#get) is a well-established and flexible utility function for safe property access.
@@ -131,7 +164,7 @@ head([]); // => undefined
 * [typesafe-get](https://github.com/pimterry/typesafe-get) seems very similar to *get-optional* for
   TypeScript users. I can't say much about it because I haven't personally used it (I started
 	developing this one without knowing there was a typesafe alternative already). You might want
-	to check that out anyway!
+	to check that out anyway.
 * [Optional chaining operator](https://github.com/tc39/proposal-optional-chaining) is *hopefully* coming
   to the language itself at some point and there's already a Babel plugin for it. The spec might still
 	change, though, and some of the tools you are currently using might not support it.

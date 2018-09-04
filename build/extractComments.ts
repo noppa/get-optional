@@ -9,7 +9,6 @@ import * as getOptional from '../lib/index.js';
 
 const pathToLibFile = (filename: string) => path.join(__dirname, '../lib', filename);
 const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
 const br = '\n';
 const readLibFile = (filename: string) => readFile(pathToLibFile(filename), 'utf8');
 
@@ -67,7 +66,7 @@ function assertCodeExampleCorrectness(code: string, allowedFunctions: string[]) 
 	for (const line of code.split(br)) {
 		const match = line.match(assertionReg);
 		if (match) {
-			const [assertionComment, expectedResultStr] = match;
+			const [ , expectedResultStr] = match;
 			const expectedResult = new Function('return ' + expectedResultStr)();
 			expectedResults.push(expectedResult);
 		}
@@ -97,7 +96,7 @@ export async function extractSignaturesFromIndexJs(): Promise<SignatureInfo[]> {
 		input: process.stdin,
 		output: process.stdout,
 	});
-	const question = (q: string): Promise<string> => new Promise((resolve, reject) => {
+	const question = (q: string): Promise<string> => new Promise((resolve) => {
 		rl.question(q, resolve);
 	});
 	const skipTests = process.argv.includes('--skip-tests');
