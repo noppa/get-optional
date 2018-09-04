@@ -26,10 +26,22 @@ class InputClass {
 	value: number;
 }
 
+type MethodInput = {
+	a?: {
+		b: {
+			c: {
+				fn: null | ((a: string) => number),
+			},
+		},
+	};
+}
+
+declare var methodInput: MethodInput;
+
 export type {
-	A, B, C, D, E, InputClass,
+	A, B, C, D, E, InputClass, MethodInput,
 };
 
 export {
-	input,
+	input, methodInput,
 }

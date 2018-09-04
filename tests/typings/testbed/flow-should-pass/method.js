@@ -1,16 +1,6 @@
 // @flow
 import {method} from 'get-optional';
+import {methodInput} from '../flow-interfaces.js';
 
-type Input = {
-	a?: {
-		b: {
-			c: {
-				fn: null | ((a: string) => number),
-			},
-		},
-	};
-}
+const result: number | void = method(methodInput, 'a', 'b', 'c', 'fn')('Hello');
 
-declare var input: Input;
-
-const result: number | void = method(input, 'a', 'b', 'c', 'fn')('Hello');

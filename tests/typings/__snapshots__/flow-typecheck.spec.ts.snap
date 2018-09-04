@@ -170,6 +170,61 @@ References:
            ^ [2]
 
 
+Error ------------------------------------------------------------------------------ flow-should-not-pass/method.js:6:76
+
+Cannot call \`method(...)\` with \`42\` bound to \`a\` because number [1] is incompatible with string [2].
+
+   flow-should-not-pass/method.js:6:76
+    6| const wrongInput: number | void = method(methodInput, 'a', 'b', 'c', 'fn')(42);
+
+                                                                                  ^^ [1]
+
+References:
+   flow-interfaces.js:33:21
+   33| 				fn: null | ((a: string) => number),
+
+                           ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------ flow-should-not-pass/method.js:9:25
+
+Cannot assign \`method(...)(...)\` to \`noUndef\` because undefined [1] is incompatible with number [2].
+
+   flow-should-not-pass/method.js:9:25
+   9| const noUndef: number = method(methodInput, 'a', 'b', 'c', 'fn')('Hello');
+
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   node_modules/get-optional/index.js.flow:3:33
+   3| type Noop = (...args: any[]) => void;
+                                      ^^^^ [1]
+   flow-should-not-pass/method.js:9:16
+   9| const noUndef: number = method(methodInput, 'a', 'b', 'c', 'fn')('Hello');
+
+                     ^^^^^^ [2]
+
+
+Error ----------------------------------------------------------------------------- flow-should-not-pass/method.js:12:36
+
+Cannot assign \`method(...)(...)\` to \`wrongOutput\` because number [1] is incompatible with string [2].
+
+   flow-should-not-pass/method.js:12:36
+   12| const wrongOutput: string | void = method(methodInput, 'a', 'b', 'c', 'fn')('Hello');
+
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-interfaces.js:33:32
+   33| 				fn: null | ((a: string) => number),
+
+                                      ^^^^^^ [1]
+   flow-should-not-pass/method.js:12:20
+   12| const wrongOutput: string | void = method(methodInput, 'a', 'b', 'c', 'fn')('Hello');
+
+                          ^^^^^^ [2]
+
+
 Error -------------------------------------------------------------------------------- flow-should-not-pass/nth.js:11:35
 
 Cannot assign \`nth(...)\` to \`fromNullableList\` because undefined [1] is incompatible with boolean [2].
@@ -296,7 +351,7 @@ References:
 
 
 
-Found 18 errors
+Found 21 errors
 
 Only showing the most relevant union/intersection branches.
 To see all branches, re-run Flow with --show-all-branches
