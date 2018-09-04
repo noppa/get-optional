@@ -2,8 +2,8 @@ const Benchmark = require('benchmark');
 const {sortBy} = require('lodash');
 const {Suite} = Benchmark;
 
-global.get$getOptional_v1 = require('../../lib/old_v1.js').get;
-global.get$getOptional_v1_0_3 = require('../../lib/old_v1.0.3.js').get;
+global.get$getOptional_v1 = require('./old_implementations/old_v1.js').get;
+global.get$getOptional_v1_0_3 = require('./old_implementations/old_v1.0.3.js').get;
 global.get$getOptional = require('../../lib/index.js').get;
 global.get$lodash = require('lodash/get');
 
@@ -45,7 +45,7 @@ function lodashTest() {
 	result$complex = get$lodash(complexInput, ['a', 'b', 'c', 'result']);
 }
 
-function onCycle() {
+function teardown() {
 	console.assert(result$simple === 42, 'Test failed with simple input, got ' + result$simple);
 	console.assert(result$complex === 'foobar', 'Test failed with complex input, got ' + JSON.stringify(result$complex));
 }
@@ -53,10 +53,10 @@ function onCycle() {
 const suite = new Suite('get');
 
 suite
-	.add('Safeget (old version 1)', v1Test, { setup, onCycle, })
-	.add('Safeget (old version 1.0.3)', v1_0_3Test, { setup, onCycle, })
-	.add('Safeget (current version)', getOptionalTest, { setup, onCycle, })
-	.add('Lodash', lodashTest, { setup, onCycle, })
+	.add('Safeget (old version 1)', v1Test, { setup, teardown, })
+	.add('Safeget (old version 1.0.3)', v1_0_3Test, { setup, teardown, })
+	.add('Safeget (current version)', getOptionalTest, { setup, teardown, })
+	.add('Lodash', lodashTest, { setup, teardown, })
 	.on('error', function({target}) {
 		console.error(`Benchmark for ${target.name} failed with error `, target.error);
 	})
