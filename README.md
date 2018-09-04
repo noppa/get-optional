@@ -39,13 +39,14 @@ const object = { a: { b: null, c: { value: 42 } } };
 
 get(object, 'a', 'c', 'value'); // => 42
 get(object, 'a', 'b', 'value'); // => undefined
+get(object, 'a', 'b'); 					// => null
 ```
 
 ### `getWithDefault(defaultValue, object, key1, key2, key3, key4, key5)`
 
 Gets the value at a given path.  
 Path must consist of 1-5 string keys.
-If one of the keys in path (before the last key) points
+If one of the keys in path (including the last one) points
 to a null or undefined value, `defaultValue` is returned instead.
 
 **Example**
@@ -54,6 +55,12 @@ const object = { a: { b: null, c: { value: 42 } } };
 
 getWithDefault('default', object, 'a', 'c', 'value'); // => 42
 getWithDefault('default', object, 'a', 'b', 'value'); // => 'default'
+getWithDefault('default', object, 'a', 'b');          // => 'default'
+
+// The same expressed with the proposed optional chaining and nullish coalescing operators:
+object?.a?.c?.value ?? 'default'; // => 42
+object?.a?.b?.value ?? 'default'; // => 'default'
+object?.a?.b ?? 'default';        // => 'default'
 ```
 
 ### `nth(list, index)`
@@ -73,7 +80,8 @@ nth(list, 3); // => undefined
 ### `nthWithDefault(defaultValue, list, index)`
 
 Gets the element at a given index of an array.
-If the index is out of bounds (larger than the length of the array),
+If the index is out of bounds (larger than the length of the array)
+or if the value to be returned is undefined or null,
 `defaultValue` is returned instead.
 
 **Example**
@@ -116,9 +124,9 @@ The returned function will have `this` context bound to the second
 to last value in the chain, i.e. the to the object that contained
 the function.
 
-If one of the keys in path points to a null or undefined value
-or if the last value is not a function, no-operation
-function `noop` is returned instead.
+If one of the keys in path point to a null or undefined value
+or if the last value is not a function, a
+no-operation function `noop` is returned instead.
 
 **Example**
 ```javascript

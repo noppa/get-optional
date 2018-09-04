@@ -1,24 +1,25 @@
+
 // Base implementation for all getters.
-// Gets the value in the given path and calls `fn` with it (and the previous
-// context object) or returns undefined if the path is not found.
+// Gets the value in the given path and calls `fn` with it
+// and the previous context object or returns undefined if the path is not found.
 function mapNullable(fn: Function, object, key1, key2, key3, key4, key5) {
 	let value1, value2, value3, value4;
-	if (object == null) 		return undefined;
+	if (object == null)			return undefined;
 	
 	value1 = object[key1];
-	if (key2 === undefined) return fn(value1, object);
+	if (key2 === undefined)	return fn(value1, object);
 	if (value1 == null) 		return undefined;
 
 	value2 = value1[key2];
-	if (key3 === undefined) return fn(value2, value1);
+	if (key3 === undefined)	return fn(value2, value1);
 	if (value2 == null) 		return undefined;
 
 	value3 = value2[key3];
-	if (key4 === undefined) return fn(value3, value2);
+	if (key4 === undefined)	return fn(value3, value2);
 	if (value3 == null) 		return undefined;
 
 	value4 = value3[key4];
-	if (key5 === undefined) return fn(value4, value3);
+	if (key5 === undefined)	return fn(value4, value3);
 	if (value4 == null) 		return undefined;
 
 	return fn(value4[key5], value4);
@@ -26,48 +27,15 @@ function mapNullable(fn: Function, object, key1, key2, key3, key4, key5) {
 
 function identity(a) { return a; }
 
-/**
- * Gets the value at a given path.
- * Path must consist of 1-5 string keys.  
- * 
- * If one of the keys in path (before the last key) points
- * to a null or undefined value, `defaultValue` is returned instead.
- * 
- * @example
- * ```javascript
- * const object = { a: { b: null, c: { value: 42 } } };
- * 
- * getWithDefault('default', object, 'a', 'c', 'value'); // => 42
- * getWithDefault('default', object, 'a', 'b', 'value'); // => 'default'
- * ```
- */
 function getWithDefault (defaultValue, obj, key1, key2, key3, key4, key5) {
 	const result = mapNullable(identity, obj, key1, key2, key3, key4, key5);
 	return result == null ? defaultValue : result;
 }
 
-/**
- * Gets the value at a given path.
- * Path must consist of 1-5 string keys.  
- * 
- * If one of the keys in path (before the last key) points
- * to a null or undefined value, `undefined` is returned instead.
- * 
- * @example
- * ```javascript
- * const object = { a: { b: null, c: { value: 42 } } };
- * 
- * get(object, 'a', 'c', 'value'); // => 42
- * get(object, 'a', 'b', 'value'); // => undefined
- * ```
- */
-function get                  (obj, key1, key2, key3, key4, key5) {
+function get(obj, key1, key2, key3, key4, key5) {
 	return mapNullable(identity, obj, key1, key2, key3, key4, key5);
 }
 
-/**
- * No-operation function. Doesn't do anything, returns `undefined`.
- */
 function noop() {} // tslint:disable-line:no-empty
 
 function bind(fn, context) {
@@ -77,109 +45,27 @@ function bind(fn, context) {
 		return undefined;
 	}
 }
-/**
- * Gets the method at a given path.
- * Path must consist of 1-5 string keys.  
- * The returned function will have `this` context bound to the second
- * to last value in the chain that contained the method.
- * 
- * If one of the keys in path (before the last key) points
- * to a null or undefined value or if the last value is not a function,
- * no-operation function `noop` is returned instead.
- * 
- * @example
- * ```
- * const container = {
- * 	counter: {
- *  	value: 1,
- * 		add(amount) {
- * 			this.value += amount;
- * 		}
- * 	}
- * };
- * 
- * method(container, 'counter', 'add')(2);
- * container.counter.value; // => 3
- * 
- * // Doesn't do anything because therer's no "subtract" method.
- * method(container, 'counter', 'subtract')(2);
- * container.counter.value; // => 3
- * ```
- */
-function method                   (obj, key1, key2, key3, key4, key5) {
+
+function method(obj, key1, key2, key3, key4, key5) {
 	const result = mapNullable(bind, obj, key1, key2, key3, key4, key5);
 	return result == null ? noop : result;
 }
 
-/**
- * Gets the element at a given index of an array.
- * 
- * If the index is out of bounds (larger than the length of the array),
- * `undefined` is returned instead. 
- * 
- * @example
- * ```javascript
- * const list = ['first', 'second', 'third'];
- * 
- * nth(list, 1); // => 'second'
- * nth(list, 3); // => undefined
- * ```
- */
 function nth(list, index) {
 	return list == null || index < 0 || index >= list.length
 		? undefined
 		: list[index];
 }
 
-/**
- * Gets the element at a given index of an array.
- * 
- * If the index is out of bounds (larger than the length of the array),
- * `defaultValue` is returned instead. 
- * 
- * @example
- * ```javascript
- * const list = ['first', 'second', 'third'];
- * 
- * nthWithDefault('default', list, 1); // => 'second'
- * nthWithDefault('default', list, 3); // => 'default'
- * ```
- */
 function nthWithDefault(defaultValue, list, index) {
 	const result = nth(list, index);
 	return result == null ? defaultValue : result;
 }
 
-/**
- * Gets the first element of an array.
- * 
- * If the array is empty, `defaultValue` is returned instead. 
- * 
- * @example
- * ```javascript
- * const list = ['first', 'second', 'third'];
- * 
- * headWithDefault('default', list); // => 'first'
- * headWithDefault('default', []);   // => 'default'
- * ```
- */
 function headWithDefault(defaultValue, list) {
 	return nthWithDefault(defaultValue, list, 0); 
 }
 
-/**
- * Gets the first element of an array.
- * 
- * If the array is empty, `undefined` is returned instead. 
- * 
- * @example
- * ```javascript
- * const list = ['first', 'second', 'third'];
- * 
- * head(list); // => 'first'
- * head([]); // => undefined
- * ```
- */
 function head(list) {
 	return nth(list, 0);
 }
