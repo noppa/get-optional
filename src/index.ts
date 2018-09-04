@@ -27,7 +27,7 @@ function mapProperty(interceptor: Function, object, key1, key2, key3, key4, key5
 
 function identity(a) { return a; }
 
-function getWithDefault (defaultValue, obj, key1, key2, key3, key4, key5) {
+function getWithDefault(defaultValue, obj, key1, key2, key3, key4, key5) {
 	const result = mapProperty(identity, obj, key1, key2, key3, key4, key5);
 	return result == null ? defaultValue : result;
 }
