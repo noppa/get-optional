@@ -19,8 +19,8 @@ References:
    flow-should-not-pass/get.js:7:10
     7| const c: C = get(input, 'a', 'b', 'c');
                 ^ [2]
-   node_modules/get-optional/index.js.flow:21:5
-   21| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>>, Key3>;
+   node_modules/get-optional/index.js.flow:23:5
+   23| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>>, Key3>;
            ^^^^ [3]
 
 
@@ -35,13 +35,13 @@ Cannot call \`get\` because:
                  ^^^^^^^^^^^^^^^^^^^^
 
 References:
-   node_modules/get-optional/index.js.flow:4:2
+   node_modules/get-optional/index.js.flow:6:2
         v--
-    4| 	<T,
-    5| 		Key1: $Keys<$NonMaybeType<T>>,
-    6| 	>
-    7| 		(object: T, key1: Key1)
-    8| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
+    6| 	<T,
+    7| 		Key1: $Keys<$NonMaybeType<T>>,
+    8| 	>
+    9| 		(object: T, key1: Key1)
+   10| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
        		--------------------------------------------^ [1]
    flow-interfaces.js:21:5
    21| 	a: A;
@@ -78,8 +78,8 @@ Cannot assign \`get(...)\` to \`fromNull\` because undefined [1] is incompatible
                               ^^^^^^^^^^^^^^
 
 References:
-   node_modules/get-optional/index.js.flow:8:5
-    8| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
+   node_modules/get-optional/index.js.flow:10:5
+   10| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
            ^^^^ [1]
    flow-should-not-pass/get.js:19:17
    19| const fromNull: null = get(null, 'a');
@@ -98,22 +98,22 @@ Cannot call \`get\` because:
                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 References:
-   node_modules/get-optional/index.js.flow:4:2
+   node_modules/get-optional/index.js.flow:6:2
         v--
-    4| 	<T,
-    5| 		Key1: $Keys<$NonMaybeType<T>>,
-    6| 	>
-    7| 		(object: T, key1: Key1)
-    8| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
+    6| 	<T,
+    7| 		Key1: $Keys<$NonMaybeType<T>>,
+    8| 	>
+    9| 		(object: T, key1: Key1)
+   10| 		: void | $ElementType<$NonMaybeType<T>, Key1>;
        		--------------------------------------------^ [1]
-   node_modules/get-optional/index.js.flow:9:2
+   node_modules/get-optional/index.js.flow:11:2
         v--
-    9| 	<T,
-   10| 		Key1: $Keys<$NonMaybeType<T>>,
-   11| 		Key2: Prop,
-   12| 	>
-   13| 		(object: T, key1: Key1, key2: Key2)
-   14| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>;
+   11| 	<T,
+   12| 		Key1: $Keys<$NonMaybeType<T>>,
+   13| 		Key2: Prop,
+   14| 	>
+   15| 		(object: T, key1: Key1, key2: Key2)
+   16| 		: void | $ElementType<$NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>, Key2>;
        		-------------------------------------------------------------------------------^ [2]
    flow-should-not-pass/get.js:23:44
    23| const inputClassValue: void | number = get(new InputClass(), 'self', 'self', 'value');
@@ -155,14 +155,14 @@ Cannot call \`getWithDefault\` because:
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 References:
-   node_modules/get-optional/index.js.flow:44:2
+   node_modules/get-optional/index.js.flow:46:2
         v-------------
-   44| 	<DefaultValue,
-   45| 		T,
-   46| 		Key1: $Keys<$NonMaybeType<T>>,
-   47| 	>
-   48| 		(defaultValue: DefaultValue, object: T, key1: Key1)
-   49| 		: DefaultValue | $NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>;
+   46| 	<DefaultValue,
+   47| 		T,
+   48| 		Key1: $Keys<$NonMaybeType<T>>,
+   49| 	>
+   50| 		(defaultValue: DefaultValue, object: T, key1: Key1)
+   51| 		: DefaultValue | $NonMaybeType<$ElementType<$NonMaybeType<T>, Key1>>;
        		-------------------------------------------------------------------^ [1]
    flow-interfaces.js:21:5
    21| 	a: A;
@@ -180,8 +180,8 @@ Cannot assign \`nth(...)\` to \`fromNullableList\` because undefined [1] is inco
                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 References:
-   node_modules/get-optional/index.js.flow:88:70
-   88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
+   node_modules/get-optional/index.js.flow:90:70
+   90| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
                                                                             ^^^^ [1]
    flow-should-not-pass/nth.js:11:25
    11| const fromNullableList: boolean = nth(get(input, 'a', 'b', 'c', 'arr'), 0);
@@ -223,8 +223,8 @@ References:
    17| 	b: null | B;
 
                   ^ [1]
-   node_modules/get-optional/index.js.flow:88:39
-   88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
+   node_modules/get-optional/index.js.flow:90:39
+   90| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
                                              ^^^^^^^^^^^^^^^^^ [2]
 
 
@@ -238,8 +238,8 @@ Cannot call \`nth\` with \`'0'\` bound to \`n\` because string [1] is incompatib
                                               ^^^ [1]
 
 References:
-   node_modules/get-optional/index.js.flow:88:61
-   88| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
+   node_modules/get-optional/index.js.flow:90:61
+   90| declare export function nth<T>(list: ?$ReadOnlyArray<T>, n: number): void | T;
                                                                    ^^^^^^ [2]
 
 
