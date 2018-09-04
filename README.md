@@ -125,10 +125,10 @@ function `noop` is returned instead.
 const container = {
   counter: {
     value: 1,
-		add(amount) {
-			this.value += amount;
-		}
-	}
+    add(amount) {
+      this.value += amount;
+    }
+  }
 };
 
 method(container, 'counter', 'add')(2);
