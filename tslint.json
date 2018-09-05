@@ -24,7 +24,8 @@
 			"arrow-parens": false,
 			"no-console": false,
 			"member-access": false,
-			"max-classes-per-file": false
+			"max-classes-per-file": false,
+			"interface-over-type-literal": false
     },
     "rulesDirectory": []
 }
