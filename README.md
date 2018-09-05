@@ -121,12 +121,13 @@ headWithDefault('default', []);   // => 'default'
 Gets the method at a given path.    
 Path must consist of 1-5 string keys.
 The returned function will have `this` context bound to the second
-to last value in the chain, i.e. the to the object that contained
+to last value in the chain, i.e. to the object that contained
 the function.
 
-If one of the keys in path point to a null or undefined value
+Always returns a function, so it's safe to chain calls `method(..)(..)`.  
+If one of the keys in path points to a null or undefined value
 or if the last value is not a function, a
-no-operation function `noop` is returned instead.
+no-operation function `noop` is returned instead. 
 
 **Example**
 ```javascript
