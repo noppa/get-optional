@@ -150,8 +150,8 @@ method(container, 'counter', 'subtract')(2);
 
 ## Caveats
 * The type definition for Flow doesn't allow accessing class or interface
-  properties `get`/`getWithDefault`. Try to use types defined with `type` declarations
-	instead, or cast the class instance to a indexable type before using
+  properties with `get`/`getWithDefault`. Try to use types defined with `type` declarations
+	instead, or cast the class instance to an indexable type before using
 	(see _tests/typings/testbed/flow-should-pass/get.js_ for an example).
 * No more than 5 keys are supported, unlike in most other similar implementations where
   any number of keys can be passed as the path. This is done to match the runtime behaviour
