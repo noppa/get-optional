@@ -6,7 +6,7 @@
 	"module": "lib/index.mjs",
 	"types": "lib/index.d.ts",
 	"scripts": {
-		"build": "yarn run build:runtime --module es2015 --target es2015 && mv lib/index.js lib/index.mjs && yarn build:runtime && yarn run build:types",
+		"build": "yarn run build:runtime --module es2015 && mv lib/index.js lib/index.mjs && yarn build:runtime && yarn run build:types",
 		"build:types": "ts-node --project tsconfig.json build/index.ts",
 		"build:runtime": "tsc --project src/tsconfig.json",
 		"prepublishOnly": "yarn build",
